@@ -1,0 +1,1157 @@
+import React, { useState, useEffect } from 'react';
+import { Ruler, Monitor, Tablet, Smartphone, Type, Download } from 'lucide-react';
+
+interface TypographySettings {
+  fontFamily: 'default' | 'raleway';
+  h1Size: number;
+  h2Size: number;
+  h3Size: number;
+  p1Size: number;
+  p2Size: number;
+  headingLineHeight: number;
+  bodyLineHeight: number;
+  headingLetterSpacing: number;
+  bodyLetterSpacing: number;
+  headingFontWeight: number;
+  bodyFontWeight: number;
+}
+
+const initialTypography: TypographySettings = {
+  fontFamily: 'raleway',
+  h1Size: 61,
+  h2Size: 49,
+  h3Size: 25,
+  p1Size: 16,
+  p2Size: 13,
+  headingLineHeight: 1.15,
+  bodyLineHeight: 1.6,
+  headingLetterSpacing: -0.022,
+  bodyLetterSpacing: 0,
+  headingFontWeight: 700,
+  bodyFontWeight: 400,
+};
+
+interface SpacingValues {
+  desktop: {
+    pagePaddingTopBottom: number;
+    pagePaddingLeftRight: number;
+    sectionPaddingTopBottom: number;
+    sectionPaddingLeftRight: number;
+    majorSections: number;
+    h1ToContent: number;
+    subsections: number;
+    subtitleToH2: number;
+    h2ToNext: number;
+    aboveButtons: number;
+    h3ToContent: number;
+    bulletPoints: number;
+    paragraphSpacing: number;
+    gridGap2ColHorizontal: number;
+    gridGap2ColVertical: number;
+    gridGap3ColHorizontal: number;
+    gridGap3ColVertical: number;
+    gridGap4ColHorizontal: number;
+    gridGap4ColVertical: number;
+    singleColumnMaxWidth: number;
+  };
+  tablet: {
+    pagePaddingTopBottom: number;
+    pagePaddingLeftRight: number;
+    sectionPaddingTopBottom: number;
+    sectionPaddingLeftRight: number;
+    majorSections: number;
+    h1ToContent: number;
+    subsections: number;
+    subtitleToH2: number;
+    h2ToNext: number;
+    aboveButtons: number;
+    h3ToContent: number;
+    bulletPoints: number;
+    paragraphSpacing: number;
+    gridGap2ColHorizontal: number;
+    gridGap2ColVertical: number;
+    gridGap3ColHorizontal: number;
+    gridGap3ColVertical: number;
+    gridGap4ColHorizontal: number;
+    gridGap4ColVertical: number;
+    singleColumnMaxWidth: number;
+  };
+  mobile: {
+    pagePaddingTopBottom: number;
+    pagePaddingLeftRight: number;
+    sectionPaddingTopBottom: number;
+    sectionPaddingLeftRight: number;
+    majorSections: number;
+    h1ToContent: number;
+    subsections: number;
+    subtitleToH2: number;
+    h2ToNext: number;
+    aboveButtons: number;
+    h3ToContent: number;
+    bulletPoints: number;
+    paragraphSpacing: number;
+    gridGap2ColHorizontal: number;
+    gridGap2ColVertical: number;
+    gridGap3ColHorizontal: number;
+    gridGap3ColVertical: number;
+    gridGap4ColHorizontal: number;
+    gridGap4ColVertical: number;
+    singleColumnMaxWidth: number;
+  };
+}
+
+const initialSpacing: SpacingValues = {
+  desktop: {
+    pagePaddingTopBottom: 48,
+    pagePaddingLeftRight: 64,
+    sectionPaddingTopBottom: 32,
+    sectionPaddingLeftRight: 32,
+    majorSections: 48,
+    h1ToContent: 40,
+    subsections: 32,
+    subtitleToH2: 32,
+    h2ToNext: 24,
+    aboveButtons: 24,
+    h3ToContent: 16,
+    bulletPoints: 16,
+    paragraphSpacing: 26,
+    gridGap2ColHorizontal: 40,
+    gridGap2ColVertical: 32,
+    gridGap3ColHorizontal: 32,
+    gridGap3ColVertical: 24,
+    gridGap4ColHorizontal: 24,
+    gridGap4ColVertical: 20,
+    singleColumnMaxWidth: 720,
+  },
+  tablet: {
+    pagePaddingTopBottom: 40,
+    pagePaddingLeftRight: 48,
+    sectionPaddingTopBottom: 24,
+    sectionPaddingLeftRight: 24,
+    majorSections: 40,
+    h1ToContent: 32,
+    subsections: 24,
+    subtitleToH2: 24,
+    h2ToNext: 20,
+    aboveButtons: 20,
+    h3ToContent: 12,
+    bulletPoints: 12,
+    paragraphSpacing: 22,
+    gridGap2ColHorizontal: 32,
+    gridGap2ColVertical: 24,
+    gridGap3ColHorizontal: 24,
+    gridGap3ColVertical: 20,
+    gridGap4ColHorizontal: 20,
+    gridGap4ColVertical: 16,
+    singleColumnMaxWidth: 630,
+  },
+  mobile: {
+    pagePaddingTopBottom: 32,
+    pagePaddingLeftRight: 24,
+    sectionPaddingTopBottom: 20,
+    sectionPaddingLeftRight: 16,
+    majorSections: 32,
+    h1ToContent: 24,
+    subsections: 20,
+    subtitleToH2: 20,
+    h2ToNext: 16,
+    aboveButtons: 16,
+    h3ToContent: 12,
+    bulletPoints: 12,
+    paragraphSpacing: 20,
+    gridGap2ColHorizontal: 24,
+    gridGap2ColVertical: 20,
+    gridGap3ColHorizontal: 20,
+    gridGap3ColVertical: 16,
+    gridGap4ColHorizontal: 16,
+    gridGap4ColVertical: 12,
+    singleColumnMaxWidth: 0, // 100% width on mobile
+  },
+};
+
+const spacingLabels = {
+  pagePaddingTopBottom: 'Page Padding (Top/Bottom)',
+  pagePaddingLeftRight: 'Page Padding (Left/Right)',
+  sectionPaddingTopBottom: 'Section Padding (Top/Bottom)',
+  sectionPaddingLeftRight: 'Section Padding (Left/Right)',
+  majorSections: 'Between Major Sections',
+  h1ToContent: 'H1 Section Title → Content',
+  subsections: 'Between Subsections',
+  subtitleToH2: 'Section Label → H2',
+  h2ToNext: 'H2 Subsection Header → Next Element',
+  aboveButtons: 'Above Buttons',
+  h3ToContent: 'H3 Subsection → Content',
+  bulletPoints: 'Bullet Point Spacing',
+  paragraphSpacing: 'Paragraph Spacing',
+  gridGap2ColHorizontal: '2-Column Grid Gap (Horizontal)',
+  gridGap2ColVertical: '2-Column Grid Gap (Vertical)',
+  gridGap3ColHorizontal: '3-Column Grid Gap (Horizontal)',
+  gridGap3ColVertical: '3-Column Grid Gap (Vertical)',
+  gridGap4ColHorizontal: '4-Column Grid Gap (Horizontal)',
+  gridGap4ColVertical: '4-Column Grid Gap (Vertical)',
+  singleColumnMaxWidth: 'Single Column Content Max Width',
+};
+
+function App() {
+  // Load settings from localStorage or use defaults
+  const loadSettings = () => {
+    try {
+      const savedSpacing = localStorage.getItem('wix-spacing-settings');
+      const savedTypography = localStorage.getItem('wix-typography-settings');
+      
+      return {
+        spacing: savedSpacing ? JSON.parse(savedSpacing) : initialSpacing,
+        typography: savedTypography ? JSON.parse(savedTypography) : initialTypography,
+      };
+    } catch (error) {
+      console.warn('Failed to load settings from localStorage:', error);
+      return {
+        spacing: initialSpacing,
+        typography: initialTypography,
+      };
+    }
+  };
+
+  const [spacing, setSpacing] = useState<SpacingValues>(loadSettings().spacing);
+  const [typography, setTypography] = useState<TypographySettings>(loadSettings().typography);
+  const [activeTab, setActiveTab] = useState<keyof SpacingValues | 'table'>('desktop');
+  const [controlTab, setControlTab] = useState<'spacing' | 'typography'>('spacing');
+
+  // Save settings to localStorage whenever they change
+  useEffect(() => {
+    try {
+      localStorage.setItem('wix-spacing-settings', JSON.stringify(spacing));
+    } catch (error) {
+      console.warn('Failed to save spacing settings to localStorage:', error);
+    }
+  }, [spacing]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('wix-typography-settings', JSON.stringify(typography));
+    } catch (error) {
+      console.warn('Failed to save typography settings to localStorage:', error);
+    }
+  }, [typography]);
+
+  const updateSpacing = (breakpoint: keyof SpacingValues, key: string, value: number) => {
+    setSpacing(prev => ({
+      ...prev,
+      [breakpoint]: {
+        ...prev[breakpoint],
+        [key]: value,
+      },
+    }));
+  };
+
+  const updateTypography = (key: keyof TypographySettings, value: string) => {
+    setTypography(prev => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
+
+  const updateTypographyNumber = (key: keyof TypographySettings, value: number) => {
+    setTypography(prev => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
+
+  const resetToDefaults = () => {
+    setSpacing(initialSpacing);
+    setTypography(initialTypography);
+  };
+
+  const getFontFamily = () => {
+    switch (typography.fontFamily) {
+      case 'raleway':
+        return '"Raleway", sans-serif';
+      default:
+        return 'system-ui, -apple-system, sans-serif';
+    }
+  };
+
+  const getTypographyStyles = (element: 'h1' | 'h2' | 'h3' | 'p1' | 'p2') => {
+    const baseStyles = {
+      fontFamily: getFontFamily(),
+    };
+
+    switch (element) {
+      case 'h1':
+        return {
+          ...baseStyles,
+          fontSize: `${typography.h1Size}px`,
+          lineHeight: typography.headingLineHeight,
+          letterSpacing: `${typography.headingLetterSpacing}em`,
+          fontWeight: typography.headingFontWeight,
+        };
+      case 'h2':
+        return {
+          ...baseStyles,
+          fontSize: `${typography.h2Size}px`,
+          lineHeight: typography.headingLineHeight,
+          letterSpacing: `${typography.headingLetterSpacing}em`,
+          fontWeight: typography.headingFontWeight,
+        };
+      case 'h3':
+        return {
+          ...baseStyles,
+          fontSize: `${typography.h3Size}px`,
+          lineHeight: typography.headingLineHeight,
+          letterSpacing: `${typography.headingLetterSpacing}em`,
+          fontWeight: typography.headingFontWeight,
+        };
+      case 'p1':
+        return {
+          ...baseStyles,
+          fontSize: `${typography.p1Size}px`,
+          lineHeight: typography.bodyLineHeight,
+          letterSpacing: `${typography.bodyLetterSpacing}em`,
+          fontWeight: typography.bodyFontWeight,
+        };
+      case 'p2':
+        return {
+          ...baseStyles,
+          fontSize: `${typography.p2Size}px`,
+          lineHeight: typography.bodyLineHeight,
+          letterSpacing: `${typography.bodyLetterSpacing}em`,
+          fontWeight: typography.bodyFontWeight,
+        };
+      default:
+        return baseStyles;
+    }
+  };
+
+  const PreviewSection: React.FC<{ 
+    title: string; 
+    breakpoint: keyof SpacingValues;
+    icon: React.ReactNode;
+  }> = ({ title, breakpoint, icon }) => {
+    const s = spacing[breakpoint];
+    
+    // Set width constraints based on breakpoint
+    const getWidthStyle = () => {
+      switch (breakpoint) {
+        case 'mobile':
+          return { maxWidth: '390px', width: '390px' };
+        case 'tablet':
+          return { maxWidth: '768px', width: '100%' };
+        case 'desktop':
+          return { maxWidth: '1200px', width: '100%' };
+        default:
+          return {};
+      }
+    };
+    
+    return (
+      <div className="bg-white rounded-lg shadow-lg p-6 overflow-hidden mx-auto" style={getWidthStyle()}>
+        <div className="flex items-center gap-2 mb-4 pb-2 border-b border-gray-200">
+          {icon}
+          <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
+        </div>
+        
+        {/* Page Variables Display */}
+        <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+          <h3 className="font-semibold text-gray-700 mb-3">Page Variables (Not Rendered)</h3>
+          <div className="grid grid-cols-1 gap-2 text-sm">
+            <div className="flex justify-between">
+              <span className="text-gray-600">Page Padding (Top/Bottom):</span>
+              <span className="font-mono text-gray-800">{s.pagePaddingTopBottom}px</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-600">Page Padding (Left/Right):</span>
+              <span className="font-mono text-gray-800">{s.pagePaddingLeftRight}px</span>
+            </div>
+          </div>
+        </div>
+        
+        <div 
+          className="space-y-0" 
+          style={{ fontFamily: getFontFamily() }}
+        >
+          {/* Major Section */}
+          <div 
+            className="bg-blue-50 rounded border-l-4 border-blue-500 border-2 border-dashed border-blue-300 bg-blue-50/30"
+            style={{
+              paddingTop: `${s.sectionPaddingTopBottom}px`,
+              paddingBottom: `${s.sectionPaddingTopBottom}px`,
+              paddingLeft: `${s.sectionPaddingLeftRight}px`,
+              paddingRight: `${s.sectionPaddingLeftRight}px`
+            }}
+          >
+            {/* Section Padding Indicator */}
+            <div className="mb-4 p-2 bg-blue-100 rounded border border-blue-300">
+              <p className="text-xs text-blue-700 font-medium">
+                Section Padding Applied: {s.sectionPaddingTopBottom}px top/bottom, {s.sectionPaddingLeftRight}px left/right
+              </p>
+            </div>
+            
+            <h1 style={getTypographyStyles('h1')}>
+              H1 Section Title
+            </h1>
+            <div style={{ marginTop: `${s.h1ToContent}px` }}>
+              <p style={getTypographyStyles('p1')}>
+                This content follows the H1 with proper hierarchical spacing to establish clear visual relationships.
+              </p>
+              <div style={{ marginTop: `${s.paragraphSpacing}px` }}>
+                <p style={getTypographyStyles('p1')}>
+                  Natural paragraph spacing maintains reading flow while respecting the overall design system.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ marginTop: `${s.majorSections}px` }}>
+            <div 
+              className="bg-green-50 rounded border-l-4 border-green-500 border-2 border-dashed border-blue-300 bg-blue-50/30"
+              style={{
+                paddingTop: `${s.sectionPaddingTopBottom}px`,
+                paddingBottom: `${s.sectionPaddingTopBottom}px`,
+                paddingLeft: `${s.sectionPaddingLeftRight}px`,
+                paddingRight: `${s.sectionPaddingLeftRight}px`
+              }}
+            >
+              {/* Section Padding Indicator */}
+              <div className="mb-4 p-2 bg-blue-100 rounded border border-blue-300">
+                <p className="text-xs text-blue-700 font-medium">
+                  Section Padding Applied: {s.sectionPaddingTopBottom}px top/bottom, {s.sectionPaddingLeftRight}px left/right
+                </p>
+              </div>
+              
+              <div style={getTypographyStyles('p2')} className="font-medium text-green-700 mb-0">Section Label</div>
+              <div style={{ marginTop: `${s.subtitleToH2}px` }}>
+                <h2 style={getTypographyStyles('h2')}>
+                  H2 Subsection Header
+                </h2>
+              </div>
+              <div style={{ marginTop: `${s.h2ToNext}px` }}>
+                <p style={getTypographyStyles('p1')}>
+                  Content that follows an H2 uses transition spacing to create clear separation.
+                </p>
+                
+                <div style={{ marginTop: `${s.h3ToContent}px` }}>
+                  <h3 style={getTypographyStyles('h3')}>
+                    H3 Subsection
+                  </h3>
+                  <div style={{ marginTop: `${s.h3ToContent}px` }}>
+                    <ul className="space-y-0" style={getTypographyStyles('p1')}>
+                      <li>• First bullet point with proper spacing</li>
+                      <li style={{ marginTop: `${s.bulletPoints}px` }}>• Second bullet point</li>
+                      <li style={{ marginTop: `${s.bulletPoints}px` }}>• Third bullet point</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div style={{ marginTop: `${s.aboveButtons}px` }}>
+                  <button 
+                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors" 
+                    style={getTypographyStyles('p1')}
+                  >
+                    Action Button
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Content + Image Layout Example */}
+          <div style={{ marginTop: `${s.subsections}px` }}>
+            <div 
+              className="bg-green-50 rounded border-l-4 border-green-500 border-2 border-dashed border-blue-300 bg-blue-50/30"
+              style={{
+                paddingTop: `${s.sectionPaddingTopBottom}px`,
+                paddingBottom: `${s.sectionPaddingTopBottom}px`,
+                paddingLeft: `${s.sectionPaddingLeftRight}px`,
+                paddingRight: `${s.sectionPaddingLeftRight}px`
+              }}
+            >
+              {/* Section Padding Indicator */}
+              <div className="mb-4 p-2 bg-blue-100 rounded border border-blue-300">
+                <p className="text-xs text-blue-700 font-medium">
+                  Section Padding Applied: {s.sectionPaddingTopBottom}px top/bottom, {s.sectionPaddingLeftRight}px left/right
+                </p>
+              </div>
+              
+              <h2 style={getTypographyStyles('h2')} className="mb-4">
+                Content + Image Layout
+              </h2>
+              
+              <div>
+                <p style={getTypographyStyles('p2')} className="text-gray-600 mb-3">
+                  Gap: {s.gridGap2ColHorizontal}px × {s.gridGap2ColVertical}px
+                </p>
+                <div 
+                  className={breakpoint === 'mobile' ? 'space-y-4' : 'grid grid-cols-2'}
+                  style={breakpoint === 'mobile' ? {} : { 
+                    columnGap: `${s.gridGap2ColHorizontal}px`,
+                    rowGap: `${s.gridGap2ColVertical}px`
+                  }}
+                >
+                  <div>
+                    <h2 style={getTypographyStyles('h2')} className="mb-3">
+                      About Our Service
+                    </h2>
+                    <p style={getTypographyStyles('p1')} className="mb-4">
+                      We provide comprehensive solutions that help businesses grow and succeed in today's competitive market.
+                    </p>
+                    <div style={{ marginTop: `${s.aboveButtons}px` }}>
+                      <button 
+                        className="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 transition-colors"
+                        style={getTypographyStyles('p1')}
+                      >
+                        Learn More
+                      </button>
+                    </div>
+                  </div>
+                  <div className="bg-gray-200 rounded flex items-center justify-center" style={{ minHeight: '120px' }}>
+                    <span style={getTypographyStyles('p2')} className="text-gray-500">Image Placeholder</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Text + Text Layout Example */}
+          <div style={{ marginTop: `${s.subsections}px` }}>
+            <div 
+              className="bg-green-50 rounded border-l-4 border-green-500 border-2 border-dashed border-blue-300 bg-blue-50/30"
+              style={{
+                paddingTop: `${s.sectionPaddingTopBottom}px`,
+                paddingBottom: `${s.sectionPaddingTopBottom}px`,
+                paddingLeft: `${s.sectionPaddingLeftRight}px`,
+                paddingRight: `${s.sectionPaddingLeftRight}px`
+              }}
+            >
+              {/* Section Padding Indicator */}
+              <div className="mb-4 p-2 bg-blue-100 rounded border border-blue-300">
+                <p className="text-xs text-blue-700 font-medium">
+                  Section Padding Applied: {s.sectionPaddingTopBottom}px top/bottom, {s.sectionPaddingLeftRight}px left/right
+                </p>
+              </div>
+              
+              <h2 style={getTypographyStyles('h2')} className="mb-4">
+                Text + Text Layout
+              </h2>
+              
+              <div>
+                <p style={getTypographyStyles('p2')} className="text-gray-600 mb-3">
+                  Gap: {s.gridGap2ColHorizontal}px × {s.gridGap2ColVertical}px
+                </p>
+                <div 
+                  className={breakpoint === 'mobile' ? 'space-y-4' : 'grid grid-cols-2'}
+                  style={breakpoint === 'mobile' ? {} : { 
+                    columnGap: `${s.gridGap2ColHorizontal}px`,
+                    rowGap: `${s.gridGap2ColVertical}px`
+                  }}
+                >
+                  <div>
+                    <h2 style={getTypographyStyles('h2')} className="mb-3">
+                      Our Mission
+                    </h2>
+                    <p style={getTypographyStyles('p1')}>
+                      To deliver exceptional value through innovative solutions and outstanding customer service.
+                    </p>
+                  </div>
+                  <div>
+                    <h2 style={getTypographyStyles('h2')} className="mb-3">
+                      Our Vision
+                    </h2>
+                    <p style={getTypographyStyles('p1')}>
+                      To be the leading provider of transformative business solutions that empower organizations worldwide.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Grid Examples */}
+          <div style={{ marginTop: `${s.subsections}px` }}>
+            <div 
+              className="bg-orange-50 rounded border-l-4 border-orange-500 border-2 border-dashed border-blue-300 bg-blue-50/30"
+              style={{
+                paddingTop: `${s.sectionPaddingTopBottom}px`,
+                paddingBottom: `${s.sectionPaddingTopBottom}px`,
+                paddingLeft: `${s.sectionPaddingLeftRight}px`,
+                paddingRight: `${s.sectionPaddingLeftRight}px`
+              }}
+            >
+              {/* Section Padding Indicator */}
+              <div className="mb-4 p-2 bg-blue-100 rounded border border-blue-300">
+                <p className="text-xs text-blue-700 font-medium">
+                  Section Padding Applied: {s.sectionPaddingTopBottom}px top/bottom, {s.sectionPaddingLeftRight}px left/right
+                </p>
+              </div>
+              
+              <h2 style={getTypographyStyles('h2')} className="mb-4">
+                Grid Examples
+              </h2>
+              
+              {/* 2 Column Grid */}
+              <div className="mb-4">
+                <h3 style={getTypographyStyles('h3')} className="mb-2">
+                  2-Column Grid ({s.gridGap2ColHorizontal}px × {s.gridGap2ColVertical}px gap)
+                </h3>
+                <div 
+                  className="grid grid-cols-2"
+                  style={{ 
+                    columnGap: `${s.gridGap2ColHorizontal}px`,
+                    rowGap: `${s.gridGap2ColVertical}px`
+                  }}
+                >
+                  <div className="bg-gray-200 p-3 rounded text-center" style={getTypographyStyles('p1')}>Item 1</div>
+                  <div className="bg-gray-200 p-3 rounded text-center" style={getTypographyStyles('p1')}>Item 2</div>
+                  <div className="bg-gray-200 p-3 rounded text-center" style={getTypographyStyles('p1')}>Item 3</div>
+                  <div className="bg-gray-200 p-3 rounded text-center" style={getTypographyStyles('p1')}>Item 4</div>
+                </div>
+              </div>
+              
+              {/* 3 Column Grid */}
+              <div className="mb-4">
+                <h3 style={getTypographyStyles('h3')} className="mb-2">
+                  3-Column Grid ({s.gridGap3ColHorizontal}px × {s.gridGap3ColVertical}px gap)
+                </h3>
+                <div 
+                  className="grid grid-cols-3"
+                  style={{ 
+                    columnGap: `${s.gridGap3ColHorizontal}px`,
+                    rowGap: `${s.gridGap3ColVertical}px`
+                  }}
+                >
+                  <div className="bg-gray-200 p-2 rounded text-center" style={getTypographyStyles('p2')}>Item 1</div>
+                  <div className="bg-gray-200 p-2 rounded text-center" style={getTypographyStyles('p2')}>Item 2</div>
+                  <div className="bg-gray-200 p-2 rounded text-center" style={getTypographyStyles('p2')}>Item 3</div>
+                  <div className="bg-gray-200 p-2 rounded text-center" style={getTypographyStyles('p2')}>Item 4</div>
+                  <div className="bg-gray-200 p-2 rounded text-center" style={getTypographyStyles('p2')}>Item 5</div>
+                  <div className="bg-gray-200 p-2 rounded text-center" style={getTypographyStyles('p2')}>Item 6</div>
+                </div>
+              </div>
+              
+              {/* 4 Column Grid */}
+              <div>
+                <h3 style={getTypographyStyles('h3')} className="mb-2">
+                  4-Column Grid ({s.gridGap4ColHorizontal}px × {s.gridGap4ColVertical}px gap)
+                </h3>
+                <div 
+                  className="grid grid-cols-4"
+                  style={{ 
+                    columnGap: `${s.gridGap4ColHorizontal}px`,
+                    rowGap: `${s.gridGap4ColVertical}px`
+                  }}
+                >
+                  <div className="bg-gray-200 p-2 rounded text-center" style={getTypographyStyles('p2')}>1</div>
+                  <div className="bg-gray-200 p-2 rounded text-center" style={getTypographyStyles('p2')}>2</div>
+                  <div className="bg-gray-200 p-2 rounded text-center" style={getTypographyStyles('p2')}>3</div>
+                  <div className="bg-gray-200 p-2 rounded text-center" style={getTypographyStyles('p2')}>4</div>
+                  <div className="bg-gray-200 p-2 rounded text-center" style={getTypographyStyles('p2')}>5</div>
+                  <div className="bg-gray-200 p-2 rounded text-center" style={getTypographyStyles('p2')}>6</div>
+                  <div className="bg-gray-200 p-2 rounded text-center" style={getTypographyStyles('p2')}>7</div>
+                  <div className="bg-gray-200 p-2 rounded text-center" style={getTypographyStyles('p2')}>8</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Single Column Content Example */}
+          <div style={{ marginTop: `${s.subsections}px` }}>
+            <div 
+              className="bg-purple-50 rounded border-l-4 border-purple-500 border-2 border-dashed border-blue-300 bg-blue-50/30"
+              style={{
+                paddingTop: `${s.sectionPaddingTopBottom}px`,
+                paddingBottom: `${s.sectionPaddingTopBottom}px`,
+                paddingLeft: `${s.sectionPaddingLeftRight}px`,
+                paddingRight: `${s.sectionPaddingLeftRight}px`
+              }}
+            >
+              {/* Section Padding Indicator */}
+              <div className="mb-4 p-2 bg-blue-100 rounded border border-blue-300">
+                <p className="text-xs text-blue-700 font-medium">
+                  Section Padding Applied: {s.sectionPaddingTopBottom}px top/bottom, {s.sectionPaddingLeftRight}px left/right
+                </p>
+              </div>
+              
+              <h2 style={getTypographyStyles('h2')} className="mb-4">
+                Single Column Content
+              </h2>
+              
+              <div 
+                className="mx-auto"
+                style={{ 
+                  maxWidth: breakpoint === 'mobile' ? '100%' : `${s.singleColumnMaxWidth}px`
+                }}
+              >
+                <div className="bg-gray-100 p-4 rounded border-2 border-dashed border-gray-300">
+                  <p style={getTypographyStyles('p2')} className="text-gray-600 mb-2">
+                    Max width: {breakpoint === 'mobile' ? '100% (no limit)' : `${s.singleColumnMaxWidth}px`}
+                  </p>
+                  <p style={getTypographyStyles('p1')} className="mb-4">
+                    This represents single-column content like blog posts, articles, or long-form text. 
+                    The max-width constraint ensures optimal reading line length for better readability.
+                  </p>
+                  <p style={getTypographyStyles('p1')}>
+                    On desktop and tablet, content is constrained to prevent overly long lines that 
+                    become difficult to read. Mobile uses full width to maximize screen real estate.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const exportSettings = () => {
+    const settings = {
+      spacing: spacingValues,
+      typography: typographySettings,
+      exportDate: new Date().toISOString(),
+      version: '1.0'
+    };
+
+    const blob = new Blob([JSON.stringify(settings, null, 2)], {
+      type: 'application/json'
+    });
+    
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `wix-spacing-config-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-100 p-6">
+      <div className="max-w-7xl mx-auto">
+        <header className="text-center mb-8">
+          <div className="flex items-center justify-center gap-3 mb-2">
+            <Ruler className="text-blue-600" size={32} />
+            <h1 className="text-3xl font-bold text-gray-800">Wix Spacing Simulator</h1>
+          </div>
+          <p className="text-gray-600">8pt Grid System - Interactive Preview & Control</p>
+        </header>
+
+        <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+          {/* Control Panel */}
+          <div className="xl:col-span-1 bg-white rounded-lg shadow-lg p-6">
+            {/* Control Tabs */}
+            <div className="flex border-b border-gray-200 mb-4">
+              <button
+                onClick={() => setControlTab('spacing')}
+                className={`flex items-center gap-2 px-3 py-2 font-medium text-sm border-b-2 transition-colors ${
+                  controlTab === 'spacing'
+                    ? 'border-blue-600 text-blue-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                <Ruler size={16} />
+                Spacing
+              </button>
+              <button
+                onClick={() => setControlTab('typography')}
+                className={`flex items-center gap-2 px-3 py-2 font-medium text-sm border-b-2 transition-colors ${
+                  controlTab === 'typography'
+                    ? 'border-purple-600 text-purple-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                <Type size={16} />
+                Typography
+              </button>
+            </div>
+            
+            {/* Spacing Controls */}
+            {controlTab === 'spacing' && (
+              <div className="space-y-4">
+                {Object.entries(spacingLabels).map(([key, label]) => (
+                  <div key={key} className="border-b border-gray-100 pb-3">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      {label}
+                    </label>
+                    <div className="grid grid-cols-3 gap-2 text-xs">
+                      <div>
+                        <label className="block text-gray-500 mb-1">Desktop</label>
+                        <input
+                          type="number"
+                         step="8"
+                          value={spacing.desktop[key as keyof typeof spacing.desktop]}
+                          onChange={(e) => updateSpacing('desktop', key, parseInt(e.target.value) || 0)}
+                         className={`w-full px-2 py-1 border rounded text-center ${
+                           spacing.desktop[key as keyof typeof spacing.desktop] % 8 === 0 
+                             ? 'border-gray-300 bg-white' 
+                             : 'border-orange-400 bg-orange-50 text-orange-800'
+                         }`}
+                          disabled={key === 'singleColumnMaxWidth'}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-gray-500 mb-1">Tablet</label>
+                        <input
+                          type="number"
+                         step="8"
+                          value={spacing.tablet[key as keyof typeof spacing.tablet]}
+                          onChange={(e) => updateSpacing('tablet', key, parseInt(e.target.value) || 0)}
+                         className={`w-full px-2 py-1 border rounded text-center ${
+                           spacing.tablet[key as keyof typeof spacing.tablet] % 8 === 0 
+                             ? 'border-gray-300 bg-white' 
+                             : 'border-orange-400 bg-orange-50 text-orange-800'
+                         }`}
+                          disabled={key === 'singleColumnMaxWidth'}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-gray-500 mb-1">Mobile</label>
+                        <input
+                          type="number"
+                         step="8"
+                          value={spacing.mobile[key as keyof typeof spacing.mobile]}
+                          onChange={(e) => updateSpacing('mobile', key, parseInt(e.target.value) || 0)}
+                         className={`w-full px-2 py-1 border rounded text-center ${
+                           spacing.mobile[key as keyof typeof spacing.mobile] % 8 === 0 
+                             ? 'border-gray-300 bg-white' 
+                             : 'border-orange-400 bg-orange-50 text-orange-800'
+                         }`}
+                          disabled={key === 'singleColumnMaxWidth'}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Typography Controls */}
+            {controlTab === 'typography' && (
+              <div className="space-y-4">
+                <div className="border-b border-gray-100 pb-3">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Font Family
+                  </label>
+                  <select
+                    value={typography.fontFamily}
+                    onChange={(e) => updateTypography('fontFamily', e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  >
+                    <option value="default">Default (System)</option>
+                    <option value="raleway">Raleway</option>
+                  </select>
+                </div>
+
+                <div className="border-b border-gray-100 pb-3">
+                  <h3 className="text-sm font-medium text-gray-700 mb-3">Font Sizes</h3>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs text-gray-600">H1</label>
+                      <input
+                        type="number"
+                        value={typography.h1Size}
+                        onChange={(e) => updateTypographyNumber('h1Size', parseInt(e.target.value) || 0)}
+                        className="w-16 px-2 py-1 border border-gray-300 rounded text-center text-xs"
+                      />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs text-gray-600">H2</label>
+                      <input
+                        type="number"
+                        value={typography.h2Size}
+                        onChange={(e) => updateTypographyNumber('h2Size', parseInt(e.target.value) || 0)}
+                        className="w-16 px-2 py-1 border border-gray-300 rounded text-center text-xs"
+                      />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs text-gray-600">H3</label>
+                      <input
+                        type="number"
+                        value={typography.h3Size}
+                        onChange={(e) => updateTypographyNumber('h3Size', parseInt(e.target.value) || 0)}
+                        className="w-16 px-2 py-1 border border-gray-300 rounded text-center text-xs"
+                      />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs text-gray-600">Body (P1)</label>
+                      <input
+                        type="number"
+                        value={typography.p1Size}
+                        onChange={(e) => updateTypographyNumber('p1Size', parseInt(e.target.value) || 0)}
+                        className="w-16 px-2 py-1 border border-gray-300 rounded text-center text-xs"
+                      />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs text-gray-600">Small (P2)</label>
+                      <input
+                        type="number"
+                        value={typography.p2Size}
+                        onChange={(e) => updateTypographyNumber('p2Size', parseInt(e.target.value) || 0)}
+                        className="w-16 px-2 py-1 border border-gray-300 rounded text-center text-xs"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border-b border-gray-100 pb-3">
+                  <h3 className="text-sm font-medium text-gray-700 mb-3">Line Height</h3>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs text-gray-600">Headings</label>
+                      <input
+                        type="number"
+                        step="0.05"
+                        value={typography.headingLineHeight}
+                        onChange={(e) => updateTypographyNumber('headingLineHeight', parseFloat(e.target.value) || 0)}
+                        className="w-16 px-2 py-1 border border-gray-300 rounded text-center text-xs"
+                      />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs text-gray-600">Body</label>
+                      <input
+                        type="number"
+                        step="0.05"
+                        value={typography.bodyLineHeight}
+                        onChange={(e) => updateTypographyNumber('bodyLineHeight', parseFloat(e.target.value) || 0)}
+                        className="w-16 px-2 py-1 border border-gray-300 rounded text-center text-xs"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border-b border-gray-100 pb-3">
+                  <h3 className="text-sm font-medium text-gray-700 mb-3">Letter Spacing</h3>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs text-gray-600">Headings (em)</label>
+                      <input
+                        type="number"
+                        step="0.001"
+                        value={typography.headingLetterSpacing}
+                        onChange={(e) => updateTypographyNumber('headingLetterSpacing', parseFloat(e.target.value) || 0)}
+                        className="w-16 px-2 py-1 border border-gray-300 rounded text-center text-xs"
+                      />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs text-gray-600">Body (em)</label>
+                      <input
+                        type="number"
+                        step="0.001"
+                        value={typography.bodyLetterSpacing}
+                        onChange={(e) => updateTypographyNumber('bodyLetterSpacing', parseFloat(e.target.value) || 0)}
+                        className="w-16 px-2 py-1 border border-gray-300 rounded text-center text-xs"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border-b border-gray-100 pb-3">
+                  <h3 className="text-sm font-medium text-gray-700 mb-3">Font Weight</h3>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs text-gray-600">Headings</label>
+                      <input
+                        type="number"
+                        step="100"
+                        min="100"
+                        max="900"
+                        value={typography.headingFontWeight}
+                        onChange={(e) => updateTypographyNumber('headingFontWeight', parseInt(e.target.value) || 400)}
+                        className="w-16 px-2 py-1 border border-gray-300 rounded text-center text-xs"
+                      />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs text-gray-600">Body</label>
+                      <input
+                        type="number"
+                        step="100"
+                        min="100"
+                        max="900"
+                        value={typography.bodyFontWeight}
+                        onChange={(e) => updateTypographyNumber('bodyFontWeight', parseInt(e.target.value) || 400)}
+                        className="w-16 px-2 py-1 border border-gray-300 rounded text-center text-xs"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-4 bg-purple-50 rounded">
+                  <h3 className="font-semibold text-purple-800 mb-2">Font Preview</h3>
+                  <div>
+                    <h1 style={getTypographyStyles('h1')} className="mb-2">H1</h1>
+                    <h2 style={getTypographyStyles('h2')} className="mb-2">H2</h2>
+                    <h3 style={getTypographyStyles('h3')} className="mb-2">H3</h3>
+                    <p style={getTypographyStyles('p1')} className="mb-2">Paragraph text</p>
+                    <p style={getTypographyStyles('p2')}>Caption text</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {controlTab === 'spacing' && (
+              <div className="mt-6 p-4 bg-blue-50 rounded">
+              <h3 className="font-semibold text-blue-800 mb-2">8pt Grid System</h3>
+              <p className="text-sm text-blue-700 mb-3">
+                All spacing values are based on 8-pixel increments for consistent visual rhythm and alignment.
+              </p>
+             <div className="mt-3 pt-3 border-t border-blue-200">
+               <p className="text-xs text-blue-600">
+                 <span className="inline-block w-3 h-3 bg-orange-50 border border-orange-400 rounded mr-1"></span>
+                 Orange highlight = breaks 8pt grid
+               </p>
+             </div>
+              <div className="mt-3 pt-3 border-t border-blue-200">
+                <button
+                  onClick={resetToDefaults}
+                  className="w-full px-3 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                >
+                  Reset to Defaults
+                </button>
+              </div>
+              </div>
+            )}
+          </div>
+
+          {/* Tabbed Preview */}
+          <div className="xl:col-span-3">
+            {/* Tab Navigation */}
+            <div className="flex border-b border-gray-200 mb-4">
+              <button
+                onClick={() => setActiveTab('desktop')}
+                className={`flex items-center gap-2 px-4 py-2 font-medium text-sm border-b-2 transition-colors ${
+                  activeTab === 'desktop'
+                    ? 'border-blue-600 text-blue-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                <Monitor size={16} />
+                Desktop (1000px+)
+              </button>
+              <button
+                onClick={() => setActiveTab('tablet')}
+                className={`flex items-center gap-2 px-4 py-2 font-medium text-sm border-b-2 transition-colors ${
+                  activeTab === 'tablet'
+                    ? 'border-green-600 text-green-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                <Tablet size={16} />
+                Tablet (≤1000px)
+              </button>
+              <button
+                onClick={() => setActiveTab('mobile')}
+                className={`flex items-center gap-2 px-4 py-2 font-medium text-sm border-b-2 transition-colors ${
+                  activeTab === 'mobile'
+                    ? 'border-purple-600 text-purple-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                <Smartphone size={16} />
+                Mobile (≤750px)
+              </button>
+              <button
+                onClick={() => setActiveTab('table')}
+                className={`flex items-center gap-2 px-4 py-2 font-medium text-sm border-b-2 transition-colors ${
+                  activeTab === 'table'
+                    ? 'border-gray-600 text-gray-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                <Ruler size={16} />
+                Reference Table
+              </button>
+            </div>
+            
+            {/* Tab Content */}
+            {activeTab === 'desktop' && (
+              <PreviewSection
+                title="Desktop Preview"
+                breakpoint="desktop"
+                icon={<Monitor size={20} className="text-blue-600" />}
+              />
+            )}
+            {activeTab === 'tablet' && (
+              <PreviewSection
+                title="Tablet Preview"
+                breakpoint="tablet"
+                icon={<Tablet size={20} className="text-green-600" />}
+              />
+            )}
+            {activeTab === 'mobile' && (
+              <PreviewSection
+                title="Mobile Preview"
+                breakpoint="mobile"
+                icon={<Smartphone size={20} className="text-purple-600" />}
+              />
+            )}
+            {activeTab === 'table' && (
+              <div className="bg-white rounded-lg shadow-lg p-6">
+                <div className="flex items-center gap-2 mb-4 pb-2 border-b border-gray-200">
+                  <Ruler size={20} className="text-gray-600" />
+                  <h2 className="text-lg font-semibold text-gray-800">Spacing Reference Table</h2>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="bg-gray-50">
+                        <th className="text-left p-3 font-semibold">Spacing Type</th>
+                        <th className="text-center p-3 font-semibold text-blue-600">Desktop</th>
+                        <th className="text-center p-3 font-semibold text-green-600">Tablet</th>
+                        <th className="text-center p-3 font-semibold text-purple-600">Mobile</th>
+                        <th className="text-left p-3 font-semibold">Usage</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {Object.entries(spacingLabels).map(([key, label]) => (
+                        <tr key={key} className="border-b border-gray-100">
+                          <td className="p-3 font-medium">{label}</td>
+                          <td className="p-3 text-center text-blue-600 font-mono">
+                           <span className={spacing.desktop[key as keyof typeof spacing.desktop] % 8 === 0 ? '' : 'text-orange-600'}>
+                             {spacing.desktop[key as keyof typeof spacing.desktop]}px
+                           </span>
+                          </td>
+                          <td className="p-3 text-center text-green-600 font-mono">
+                           <span className={spacing.tablet[key as keyof typeof spacing.tablet] % 8 === 0 ? '' : 'text-orange-600'}>
+                             {spacing.tablet[key as keyof typeof spacing.tablet]}px
+                           </span>
+                          </td>
+                          <td className="p-3 text-center text-purple-600 font-mono">
+                           <span className={spacing.mobile[key as keyof typeof spacing.mobile] % 8 === 0 ? '' : 'text-orange-600'}>
+                             {spacing.mobile[key as keyof typeof spacing.mobile]}px
+                           </span>
+                          </td>
+                          <td className="p-3 text-gray-600 text-xs">
+                            {key === 'pagePaddingTopBottom' && 'Global page padding for top and bottom margins'}
+                            {key === 'pagePaddingLeftRight' && 'Global page padding for left and right margins'}
+                            {key === 'sectionPaddingLeftRight' && 'Section-level left and right padding'}
+                            {key === 'majorSections' && 'Maximum separation for distinct content areas'}
+                            {key === 'h1ToContent' && 'Strong hierarchy for H1 section titles'}
+                            {key === 'subsections' && 'Clear but connected section breaks'}
+                            {key === 'subtitleToH2' && 'Section label to H2 header relationship'}
+                            {key === 'h2ToNext' && 'H2 to next element transition spacing'}
+                            {key === 'aboveButtons' && 'Breathing room before CTAs'}
+                            {key === 'h3ToContent' && 'H3 to content tight ownership spacing'}
+                            {key === 'bulletPoints' && 'List item separation'}
+                            {key === 'paragraphSpacing' && 'Natural text flow (breaks 8pt grid intentionally)'}
+                            {key === 'gridGap2ColHorizontal' && 'Horizontal spacing in 2-column layouts'}
+                            {key === 'gridGap2ColVertical' && 'Vertical spacing in 2-column layouts'}
+                            {key === 'gridGap3ColHorizontal' && 'Horizontal spacing in 3-column layouts'}
+                            {key === 'gridGap3ColVertical' && 'Vertical spacing in 3-column layouts'}
+                            {key === 'gridGap4ColHorizontal' && 'Horizontal spacing in 4-column layouts'}
+                            {key === 'gridGap4ColVertical' && 'Vertical spacing in 4-column layouts'}
+                            {key === 'singleColumnMaxWidth' && 'Max width for single-column content (articles, blog posts)'}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App;
