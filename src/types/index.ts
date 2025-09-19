@@ -1,4 +1,4 @@
-export interface TypographySettings {
+export interface TypographyBreakpoint {
   fontFamily: "default" | "raleway";
   h1Size: number;
   h2Size: number;
@@ -11,6 +11,12 @@ export interface TypographySettings {
   bodyLetterSpacing: number;
   headingFontWeight: number;
   bodyFontWeight: number;
+}
+
+export interface TypographySettings {
+  desktop: TypographyBreakpoint;
+  tablet: TypographyBreakpoint;
+  mobile: TypographyBreakpoint;
 }
 
 export interface SpacingValues {
@@ -43,6 +49,7 @@ export interface SpacingBreakpoint {
 }
 
 export type BreakpointKey = keyof SpacingValues;
+export type TypographyBreakpointKey = keyof TypographySettings;
 export type TabKey = BreakpointKey | "table";
 export type ControlTabKey = "spacing" | "typography" | "settings";
 export type TypographyElement = "h1" | "h2" | "h3" | "p1" | "p2";

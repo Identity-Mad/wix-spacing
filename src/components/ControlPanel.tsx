@@ -20,10 +20,10 @@ interface ControlPanelProps {
     key: string,
     value: number
   ) => void;
-  updateTypography: (key: keyof TypographySettings, value: string) => void;
-  updateTypographyNumber: (
-    key: keyof TypographySettings,
-    value: number
+  updateTypography: (
+    breakpoint: keyof TypographySettings,
+    key: keyof TypographySettings["desktop"],
+    value: string | number
   ) => void;
   resetToDefaults: () => void;
   exportSettings: () => void;
@@ -37,15 +37,14 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
   setControlTab,
   updateSpacing,
   updateTypography,
-  updateTypographyNumber,
   resetToDefaults,
   exportSettings,
   importSettings,
 }) => {
   return (
-    <div className="xl:col-span-1 bg-white rounded-lg shadow-lg p-6">
+    <div className="xl:col-span-1 bg-white rounded-lg shadow-lg p-6 flex flex-col h-[calc(100vh-8rem)]">
       {/* Control Tabs */}
-      <div className="flex border-b border-gray-200 mb-4">
+      <div className="flex border-b border-gray-200 mb-4 flex-shrink-0">
         <button
           onClick={() => setControlTab("spacing")}
           className={`flex items-center justify-center px-3 py-2 font-medium text-sm border-b-2 transition-colors ${
@@ -82,25 +81,26 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
       </div>
 
       {/* Tab Content */}
-      {controlTab === "spacing" && (
-        <SpacingControls spacing={spacing} updateSpacing={updateSpacing} />
-      )}
+      <div className="flex-1 overflow-y-auto">
+        {controlTab === "spacing" && (
+          <SpacingControls spacing={spacing} updateSpacing={updateSpacing} />
+        )}
 
-      {controlTab === "typography" && (
-        <TypographyControls
-          typography={typography}
-          updateTypography={updateTypography}
-          updateTypographyNumber={updateTypographyNumber}
-        />
-      )}
+        {controlTab === "typography" && (
+          <TypographyControls
+            typography={typography}
+            updateTypography={updateTypography}
+          />
+        )}
 
-      {controlTab === "settings" && (
-        <SettingsControls
-          resetToDefaults={resetToDefaults}
-          exportSettings={exportSettings}
-          importSettings={importSettings}
-        />
-      )}
+        {controlTab === "settings" && (
+          <SettingsControls
+            resetToDefaults={resetToDefaults}
+            exportSettings={exportSettings}
+            importSettings={importSettings}
+          />
+        )}
+      </div>
     </div>
   );
 };

@@ -3,16 +3,38 @@ import { SpacingValues, TypographySettings } from "../types";
 import { initialSpacing, initialTypography } from "../constants";
 
 export const useSettings = () => {
+  const migrateTypography = (oldTypography: any) => {
+    // Check if it's the old flat structure
+    if (
+      oldTypography &&
+      !oldTypography.desktop &&
+      !oldTypography.tablet &&
+      !oldTypography.mobile
+    ) {
+      // Convert old flat structure to new breakpoint structure
+      return {
+        desktop: { ...oldTypography },
+        tablet: { ...oldTypography },
+        mobile: { ...oldTypography },
+      };
+    }
+    return oldTypography;
+  };
+
   const loadSettings = () => {
     try {
       const savedSpacing = localStorage.getItem("wix-spacing-settings");
       const savedTypography = localStorage.getItem("wix-typography-settings");
 
+      let typography = initialTypography;
+      if (savedTypography) {
+        const parsedTypography = JSON.parse(savedTypography);
+        typography = migrateTypography(parsedTypography);
+      }
+
       return {
         spacing: savedSpacing ? JSON.parse(savedSpacing) : initialSpacing,
-        typography: savedTypography
-          ? JSON.parse(savedTypography)
-          : initialTypography,
+        typography,
       };
     } catch (error) {
       console.warn("Failed to load settings from localStorage:", error);
