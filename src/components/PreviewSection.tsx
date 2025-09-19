@@ -39,7 +39,7 @@ export const PreviewSection: React.FC<PreviewSectionProps> = ({
     children,
   }) => (
     <div
-      className="border-2 border-dashed border-blue-300 bg-blue-50/30"
+      className="border-2 border-dashed border-gray-400 bg-gray-100/50"
       style={{
         paddingTop: `${s.sectionPaddingTopBottom}px`,
         paddingBottom: `${s.sectionPaddingTopBottom}px`,
@@ -48,8 +48,8 @@ export const PreviewSection: React.FC<PreviewSectionProps> = ({
       }}
     >
       {/* Section Padding Indicator */}
-      <div className="mb-4 p-2 bg-blue-100 rounded border border-blue-300">
-        <p className="text-xs text-blue-700 font-medium">
+      <div className="mb-4 p-2 bg-gray-200 rounded border border-gray-400">
+        <p className="text-xs text-gray-700 font-medium">
           Section Padding Applied: {s.sectionPaddingTopBottom}px top/bottom,{" "}
           {s.sectionPaddingLeftRight}px left/right
         </p>
@@ -171,66 +171,69 @@ export const PreviewSection: React.FC<PreviewSectionProps> = ({
         <div style={{ marginTop: `${s.subsections}px` }}>
           <div className="bg-green-50 rounded border-l-4 border-green-500">
             <SectionPadding>
-              <h2
-                style={getTypographyStyles(typography, "h2")}
-                className="mb-4"
-              >
+              <h2 style={getTypographyStyles(typography, "h2")}>
                 Content + Image Layout
               </h2>
 
-              <div>
-                <p
-                  style={getTypographyStyles(typography, "p2")}
-                  className="text-gray-600 mb-3"
-                >
-                  Gap: {s.gridGap2ColHorizontal}px × {s.gridGap2ColVertical}px
-                </p>
-                <div
-                  className={
-                    breakpoint === "mobile" ? "space-y-4" : "grid grid-cols-2"
-                  }
-                  style={
-                    breakpoint === "mobile"
-                      ? {}
-                      : {
-                          columnGap: `${s.gridGap2ColHorizontal}px`,
-                          rowGap: `${s.gridGap2ColVertical}px`,
-                        }
-                  }
-                >
-                  <div>
-                    <h2
-                      style={getTypographyStyles(typography, "h2")}
-                      className="mb-3"
-                    >
-                      About Our Service
-                    </h2>
-                    <p
-                      style={getTypographyStyles(typography, "p1")}
-                      className="mb-4"
-                    >
-                      We provide comprehensive solutions that help businesses
-                      grow and succeed in today's competitive market.
-                    </p>
-                    <div style={{ marginTop: `${s.aboveButtons}px` }}>
-                      <button
-                        className="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 transition-colors"
-                        style={getTypographyStyles(typography, "p1")}
-                      >
-                        Learn More
-                      </button>
-                    </div>
-                  </div>
-                  <div
-                    className="bg-gray-200 rounded flex items-center justify-center"
-                    style={{ minHeight: "120px" }}
+              <div style={{ marginTop: `${s.h2ToNext}px` }}>
+                <div>
+                  <p
+                    style={getTypographyStyles(typography, "p2")}
+                    className="text-gray-600 mb-3"
                   >
-                    <span
-                      style={getTypographyStyles(typography, "p2")}
-                      className="text-gray-500"
+                    Gap: {s.gridGap2ColHorizontal}px × {s.gridGap2ColVertical}px
+                  </p>
+                  <div
+                    className={
+                      breakpoint === "mobile" ? "space-y-4" : "grid grid-cols-2"
+                    }
+                    style={
+                      breakpoint === "mobile"
+                        ? {}
+                        : {
+                            columnGap: `${s.gridGap2ColHorizontal}px`,
+                            rowGap: `${s.gridGap2ColVertical}px`,
+                          }
+                    }
+                  >
+                    <div>
+                      <h2 style={getTypographyStyles(typography, "h2")}>
+                        About Our Service
+                      </h2>
+                      <div style={{ marginTop: `${s.h2ToNext}px` }}>
+                        <p
+                          style={getTypographyStyles(typography, "p1")}
+                          className="mb-4"
+                        >
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit. Sed do eiusmod tempor incididunt ut labore et
+                          dolore magna aliqua. Ut enim ad minim veniam, quis
+                          nostrud exercitation ullamco laboris nisi ut aliquip
+                          ex ea commodo consequat. Duis aute irure dolor in
+                          reprehenderit in voluptate velit esse cillum dolore eu
+                          fugiat nulla pariatur.
+                        </p>
+                      </div>
+                      <div style={{ marginTop: `${s.aboveButtons}px` }}>
+                        <button
+                          className="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 transition-colors"
+                          style={getTypographyStyles(typography, "p1")}
+                        >
+                          Learn More
+                        </button>
+                      </div>
+                    </div>
+                    <div
+                      className="bg-gray-200 rounded flex items-center justify-center"
+                      style={{ minHeight: "120px" }}
                     >
-                      Image Placeholder
-                    </span>
+                      <span
+                        style={getTypographyStyles(typography, "p2")}
+                        className="text-gray-500"
+                      >
+                        Image Placeholder
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -242,14 +245,11 @@ export const PreviewSection: React.FC<PreviewSectionProps> = ({
         <div style={{ marginTop: `${s.subsections}px` }}>
           <div className="bg-green-50 rounded border-l-4 border-green-500">
             <SectionPadding>
-              <h2
-                style={getTypographyStyles(typography, "h2")}
-                className="mb-4"
-              >
+              <h2 style={getTypographyStyles(typography, "h2")}>
                 Text + Text Layout
               </h2>
 
-              <div>
+              <div style={{ marginTop: `${s.h2ToNext}px` }}>
                 <p
                   style={getTypographyStyles(typography, "p2")}
                   className="text-gray-600 mb-3"
@@ -270,27 +270,30 @@ export const PreviewSection: React.FC<PreviewSectionProps> = ({
                   }
                 >
                   <div>
-                    <h2
-                      style={getTypographyStyles(typography, "h2")}
-                      className="mb-3"
-                    >
+                    <h2 style={getTypographyStyles(typography, "h2")}>
                       Our Mission
                     </h2>
                     <p style={getTypographyStyles(typography, "p1")}>
-                      To deliver exceptional value through innovative solutions
-                      and outstanding customer service.
+                      Excepteur sint occaecat cupidatat non proident, sunt in
+                      culpa qui officia deserunt mollit anim id est laborum. Sed
+                      ut perspiciatis unde omnis iste natus error sit voluptatem
+                      accusantium doloremque laudantium. Totam rem aperiam,
+                      eaque ipsa quae ab illo inventore veritatis et quasi
+                      architecto beatae vitae dicta sunt explicabo.
                     </p>
                   </div>
                   <div>
-                    <h2
-                      style={getTypographyStyles(typography, "h2")}
-                      className="mb-3"
-                    >
+                    <h2 style={getTypographyStyles(typography, "h2")}>
                       Our Vision
                     </h2>
                     <p style={getTypographyStyles(typography, "p1")}>
-                      To be the leading provider of transformative business
-                      solutions that empower organizations worldwide.
+                      Nemo enim ipsam voluptatem quia voluptas sit aspernatur
+                      aut odit aut fugit, sed quia consequuntur magni dolores
+                      eos qui ratione voluptatem sequi nesciunt. Neque porro
+                      quisquam est, qui dolorem ipsum quia dolor sit amet,
+                      consectetur, adipisci velit, sed quia non numquam eius
+                      modi tempora incidunt ut labore et dolore magnam aliquam
+                      quaerat voluptatem.
                     </p>
                   </div>
                 </div>
@@ -303,174 +306,179 @@ export const PreviewSection: React.FC<PreviewSectionProps> = ({
         <div style={{ marginTop: `${s.subsections}px` }}>
           <div className="bg-orange-50 rounded border-l-4 border-orange-500">
             <SectionPadding>
-              <h2
-                style={getTypographyStyles(typography, "h2")}
-                className="mb-4"
-              >
+              <h2 style={getTypographyStyles(typography, "h2")}>
                 Grid Examples
               </h2>
 
-              {/* 2 Column Grid */}
-              <div className="mb-4">
-                <h3
-                  style={getTypographyStyles(typography, "h3")}
-                  className="mb-2"
-                >
-                  2-Column Grid ({s.gridGap2ColHorizontal}px ×{" "}
-                  {s.gridGap2ColVertical}px gap)
-                </h3>
-                <div
-                  className="grid grid-cols-2"
-                  style={{
-                    columnGap: `${s.gridGap2ColHorizontal}px`,
-                    rowGap: `${s.gridGap2ColVertical}px`,
-                  }}
-                >
-                  <div
-                    className="bg-gray-200 p-3 rounded text-center"
-                    style={getTypographyStyles(typography, "p1")}
+              <div style={{ marginTop: `${s.h2ToNext}px` }}>
+                {/* 2 Column Grid */}
+                <div className="mb-4">
+                  <h3
+                    style={getTypographyStyles(typography, "h3")}
+                    className="mb-2"
                   >
-                    Item 1
-                  </div>
-                  <div
-                    className="bg-gray-200 p-3 rounded text-center"
-                    style={getTypographyStyles(typography, "p1")}
-                  >
-                    Item 2
-                  </div>
-                  <div
-                    className="bg-gray-200 p-3 rounded text-center"
-                    style={getTypographyStyles(typography, "p1")}
-                  >
-                    Item 3
-                  </div>
-                  <div
-                    className="bg-gray-200 p-3 rounded text-center"
-                    style={getTypographyStyles(typography, "p1")}
-                  >
-                    Item 4
-                  </div>
-                </div>
-              </div>
-
-              {/* 3 Column Grid */}
-              <div className="mb-4">
-                <h3
-                  style={getTypographyStyles(typography, "h3")}
-                  className="mb-2"
-                >
-                  3-Column Grid ({s.gridGap3ColHorizontal}px ×{" "}
-                  {s.gridGap3ColVertical}px gap)
-                </h3>
-                <div
-                  className="grid grid-cols-3"
-                  style={{
-                    columnGap: `${s.gridGap3ColHorizontal}px`,
-                    rowGap: `${s.gridGap3ColVertical}px`,
-                  }}
-                >
-                  <div
-                    className="bg-gray-200 p-2 rounded text-center"
-                    style={getTypographyStyles(typography, "p2")}
-                  >
-                    Item 1
-                  </div>
-                  <div
-                    className="bg-gray-200 p-2 rounded text-center"
-                    style={getTypographyStyles(typography, "p2")}
-                  >
-                    Item 2
-                  </div>
-                  <div
-                    className="bg-gray-200 p-2 rounded text-center"
-                    style={getTypographyStyles(typography, "p2")}
-                  >
-                    Item 3
-                  </div>
-                  <div
-                    className="bg-gray-200 p-2 rounded text-center"
-                    style={getTypographyStyles(typography, "p2")}
-                  >
-                    Item 4
-                  </div>
-                  <div
-                    className="bg-gray-200 p-2 rounded text-center"
-                    style={getTypographyStyles(typography, "p2")}
-                  >
-                    Item 5
-                  </div>
-                  <div
-                    className="bg-gray-200 p-2 rounded text-center"
-                    style={getTypographyStyles(typography, "p2")}
-                  >
-                    Item 6
+                    2-Column Grid ({s.gridGap2ColHorizontal}px ×{" "}
+                    {s.gridGap2ColVertical}px gap)
+                  </h3>
+                  <div style={{ marginBottom: `${s.h3ToContent}px` }}>
+                    <div
+                      className="grid grid-cols-2"
+                      style={{
+                        columnGap: `${s.gridGap2ColHorizontal}px`,
+                        rowGap: `${s.gridGap2ColVertical}px`,
+                      }}
+                    >
+                      <div
+                        className="bg-gray-200 p-3 rounded text-center aspect-square flex items-center justify-center"
+                        style={getTypographyStyles(typography, "p1")}
+                      >
+                        Item 1
+                      </div>
+                      <div
+                        className="bg-gray-200 p-3 rounded text-center aspect-square flex items-center justify-center"
+                        style={getTypographyStyles(typography, "p1")}
+                      >
+                        Item 2
+                      </div>
+                      <div
+                        className="bg-gray-200 p-3 rounded text-center aspect-square flex items-center justify-center"
+                        style={getTypographyStyles(typography, "p1")}
+                      >
+                        Item 3
+                      </div>
+                      <div
+                        className="bg-gray-200 p-3 rounded text-center aspect-square flex items-center justify-center"
+                        style={getTypographyStyles(typography, "p1")}
+                      >
+                        Item 4
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* 4 Column Grid */}
-              <div>
-                <h3
-                  style={getTypographyStyles(typography, "h3")}
-                  className="mb-2"
-                >
-                  4-Column Grid ({s.gridGap4ColHorizontal}px ×{" "}
-                  {s.gridGap4ColVertical}px gap)
-                </h3>
-                <div
-                  className="grid grid-cols-4"
-                  style={{
-                    columnGap: `${s.gridGap4ColHorizontal}px`,
-                    rowGap: `${s.gridGap4ColVertical}px`,
-                  }}
-                >
-                  <div
-                    className="bg-gray-200 p-2 rounded text-center"
-                    style={getTypographyStyles(typography, "p2")}
+                {/* 3 Column Grid */}
+                <div className="mb-4">
+                  <h3
+                    style={getTypographyStyles(typography, "h3")}
+                    className="mb-2"
                   >
-                    1
+                    3-Column Grid ({s.gridGap3ColHorizontal}px ×{" "}
+                    {s.gridGap3ColVertical}px gap)
+                  </h3>
+                  <div style={{ marginBottom: `${s.h3ToContent}px` }}>
+                    <div
+                      className="grid grid-cols-3"
+                      style={{
+                        columnGap: `${s.gridGap3ColHorizontal}px`,
+                        rowGap: `${s.gridGap3ColVertical}px`,
+                      }}
+                    >
+                      <div
+                        className="bg-gray-200 p-2 rounded text-center aspect-square flex items-center justify-center"
+                        style={getTypographyStyles(typography, "p2")}
+                      >
+                        Item 1
+                      </div>
+                      <div
+                        className="bg-gray-200 p-2 rounded text-center aspect-square flex items-center justify-center"
+                        style={getTypographyStyles(typography, "p2")}
+                      >
+                        Item 2
+                      </div>
+                      <div
+                        className="bg-gray-200 p-2 rounded text-center aspect-square flex items-center justify-center"
+                        style={getTypographyStyles(typography, "p2")}
+                      >
+                        Item 3
+                      </div>
+                      <div
+                        className="bg-gray-200 p-2 rounded text-center aspect-square flex items-center justify-center"
+                        style={getTypographyStyles(typography, "p2")}
+                      >
+                        Item 4
+                      </div>
+                      <div
+                        className="bg-gray-200 p-2 rounded text-center aspect-square flex items-center justify-center"
+                        style={getTypographyStyles(typography, "p2")}
+                      >
+                        Item 5
+                      </div>
+                      <div
+                        className="bg-gray-200 p-2 rounded text-center aspect-square flex items-center justify-center"
+                        style={getTypographyStyles(typography, "p2")}
+                      >
+                        Item 6
+                      </div>
+                    </div>
                   </div>
-                  <div
-                    className="bg-gray-200 p-2 rounded text-center"
-                    style={getTypographyStyles(typography, "p2")}
+                </div>
+
+                {/* 4 Column Grid */}
+                <div>
+                  <h3
+                    style={getTypographyStyles(typography, "h3")}
+                    className="mb-2"
                   >
-                    2
-                  </div>
-                  <div
-                    className="bg-gray-200 p-2 rounded text-center"
-                    style={getTypographyStyles(typography, "p2")}
-                  >
-                    3
-                  </div>
-                  <div
-                    className="bg-gray-200 p-2 rounded text-center"
-                    style={getTypographyStyles(typography, "p2")}
-                  >
-                    4
-                  </div>
-                  <div
-                    className="bg-gray-200 p-2 rounded text-center"
-                    style={getTypographyStyles(typography, "p2")}
-                  >
-                    5
-                  </div>
-                  <div
-                    className="bg-gray-200 p-2 rounded text-center"
-                    style={getTypographyStyles(typography, "p2")}
-                  >
-                    6
-                  </div>
-                  <div
-                    className="bg-gray-200 p-2 rounded text-center"
-                    style={getTypographyStyles(typography, "p2")}
-                  >
-                    7
-                  </div>
-                  <div
-                    className="bg-gray-200 p-2 rounded text-center"
-                    style={getTypographyStyles(typography, "p2")}
-                  >
-                    8
+                    4-Column Grid ({s.gridGap4ColHorizontal}px ×{" "}
+                    {s.gridGap4ColVertical}px gap)
+                  </h3>
+                  <div style={{ marginBottom: `${s.h3ToContent}px` }}>
+                    <div
+                      className="grid grid-cols-4"
+                      style={{
+                        columnGap: `${s.gridGap4ColHorizontal}px`,
+                        rowGap: `${s.gridGap4ColVertical}px`,
+                      }}
+                    >
+                      <div
+                        className="bg-gray-200 p-2 rounded text-center aspect-square flex items-center justify-center"
+                        style={getTypographyStyles(typography, "p2")}
+                      >
+                        1
+                      </div>
+                      <div
+                        className="bg-gray-200 p-2 rounded text-center aspect-square flex items-center justify-center"
+                        style={getTypographyStyles(typography, "p2")}
+                      >
+                        2
+                      </div>
+                      <div
+                        className="bg-gray-200 p-2 rounded text-center aspect-square flex items-center justify-center"
+                        style={getTypographyStyles(typography, "p2")}
+                      >
+                        3
+                      </div>
+                      <div
+                        className="bg-gray-200 p-2 rounded text-center aspect-square flex items-center justify-center"
+                        style={getTypographyStyles(typography, "p2")}
+                      >
+                        4
+                      </div>
+                      <div
+                        className="bg-gray-200 p-2 rounded text-center aspect-square flex items-center justify-center"
+                        style={getTypographyStyles(typography, "p2")}
+                      >
+                        5
+                      </div>
+                      <div
+                        className="bg-gray-200 p-2 rounded text-center aspect-square flex items-center justify-center"
+                        style={getTypographyStyles(typography, "p2")}
+                      >
+                        6
+                      </div>
+                      <div
+                        className="bg-gray-200 p-2 rounded text-center aspect-square flex items-center justify-center"
+                        style={getTypographyStyles(typography, "p2")}
+                      >
+                        7
+                      </div>
+                      <div
+                        className="bg-gray-200 p-2 rounded text-center aspect-square flex items-center justify-center"
+                        style={getTypographyStyles(typography, "p2")}
+                      >
+                        8
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -482,45 +490,56 @@ export const PreviewSection: React.FC<PreviewSectionProps> = ({
         <div style={{ marginTop: `${s.subsections}px` }}>
           <div className="bg-purple-50 rounded border-l-4 border-purple-500">
             <SectionPadding>
-              <h2
-                style={getTypographyStyles(typography, "h2")}
-                className="mb-4"
-              >
+              <h2 style={getTypographyStyles(typography, "h2")}>
                 Single Column Content
               </h2>
 
-              <div
-                className="mx-auto"
-                style={{
-                  maxWidth:
-                    breakpoint === "mobile"
-                      ? "100%"
-                      : `${s.singleColumnMaxWidth}px`,
-                }}
-              >
-                <div className="bg-gray-100 p-4 rounded border-2 border-dashed border-gray-300">
-                  <p
-                    style={getTypographyStyles(typography, "p2")}
-                    className="text-gray-600 mb-2"
-                  >
-                    Max width:{" "}
-                    {breakpoint === "mobile"
-                      ? "100% (no limit)"
-                      : `${s.singleColumnMaxWidth}px`}
-                  </p>
-                  <p
-                    style={getTypographyStyles(typography, "p1")}
-                    className="mb-4"
-                  >
-                    This represents single-column content like blog posts,
-                    articles, or long-form text. The max-width constraint
-                    ensures optimal reading line length for better readability.
-                  </p>
-                  <p style={getTypographyStyles(typography, "p1")}>
-                    On desktop and tablet, content is constrained to prevent
-                    overly long lines that become difficult to read. Mobile uses
-                    full width to maximize screen real estate.
-                  </p>
+              <div style={{ marginTop: `${s.h2ToNext}px` }}>
+                <div
+                  style={{
+                    maxWidth:
+                      breakpoint === "mobile"
+                        ? "100%"
+                        : `${s.singleColumnMaxWidth}px`,
+                  }}
+                >
+                  <div className="bg-gray-100 p-4 rounded border-2 border-dashed border-gray-300">
+                    <p
+                      style={getTypographyStyles(typography, "p2")}
+                      className="text-gray-600 mb-2"
+                    >
+                      Max width:{" "}
+                      {breakpoint === "mobile"
+                        ? "100% (no limit)"
+                        : `${s.singleColumnMaxWidth}px`}
+                    </p>
+                    <p
+                      style={getTypographyStyles(typography, "p1")}
+                      className="mb-4"
+                    >
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                      ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                      Duis aute irure dolor in reprehenderit in voluptate velit
+                      esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                      sint occaecat cupidatat non proident, sunt in culpa qui
+                      officia deserunt mollit anim id est laborum.
+                    </p>
+                    <p style={getTypographyStyles(typography, "p1")}>
+                      Sed ut perspiciatis unde omnis iste natus error sit
+                      voluptatem accusantium doloremque laudantium, totam rem
+                      aperiam, eaque ipsa quae ab illo inventore veritatis et
+                      quasi architecto beatae vitae dicta sunt explicabo. Nemo
+                      enim ipsam voluptatem quia voluptas sit aspernatur aut
+                      odit aut fugit, sed quia consequuntur magni dolores eos
+                      qui ratione voluptatem sequi nesciunt. At vero eos et
+                      accusamus et iusto odio dignissimos ducimus qui blanditiis
+                      praesentium voluptatum deleniti atque corrupti quos
+                      dolores et quas molestias excepturi sint occaecati
+                      cupiditate non provident.
+                    </p>
+                  </div>
                 </div>
               </div>
             </SectionPadding>

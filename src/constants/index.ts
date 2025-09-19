@@ -115,24 +115,35 @@ export const initialSpacing: SpacingValues = {
 };
 
 export const spacingLabels = {
-  pagePaddingTopBottom: "Page Padding (Top/Bottom)",
-  pagePaddingLeftRight: "Page Padding (Left/Right)",
-  sectionPaddingTopBottom: "Section Padding (Top/Bottom)",
-  sectionPaddingLeftRight: "Section Padding (Left/Right)",
+  // Page & Section Layout
+  pagePaddingTopBottom: "Page Padding (Vertical)",
+  pagePaddingLeftRight: "Page Padding (Horizontal)",
+  sectionPaddingTopBottom: "Section Padding (Vertical)",
+  sectionPaddingLeftRight: "Section Padding (Horizontal)",
   majorSections: "Between Major Sections",
-  h1ToContent: "H1 Section Title → Content",
   subsections: "Between Subsections",
+
+  // Heading Hierarchy
+  h1ToContent: "H1 → Next Element",
+  h2ToNext: "H2 → Next Element",
+  h3ToContent: "H3 → Next Element",
   subtitleToH2: "Section Label → H2",
-  h2ToNext: "H2 Subsection Header → Next Element",
-  aboveButtons: "Above Buttons",
-  h3ToContent: "H3 Subsection → Content",
-  bulletPoints: "Bullet Point Spacing",
+
+  // Content Spacing
   paragraphSpacing: "Paragraph Spacing",
-  gridGap2ColHorizontal: "2-Column Grid Gap (Horizontal)",
-  gridGap2ColVertical: "2-Column Grid Gap (Vertical)",
-  gridGap3ColHorizontal: "3-Column Grid Gap (Horizontal)",
-  gridGap3ColVertical: "3-Column Grid Gap (Vertical)",
-  gridGap4ColHorizontal: "4-Column Grid Gap (Horizontal)",
-  gridGap4ColVertical: "4-Column Grid Gap (Vertical)",
-  singleColumnMaxWidth: "Single Column Content Max Width",
+  bulletPoints: "Bullet Point Spacing",
+
+  // Interactive Elements
+  aboveButtons: "Above Buttons",
+
+  // Grid Layouts
+  gridGap2ColHorizontal: "2-Column Gap (Horizontal)",
+  gridGap2ColVertical: "2-Column Gap (Vertical)",
+  gridGap3ColHorizontal: "3-Column Gap (Horizontal)",
+  gridGap3ColVertical: "3-Column Gap (Vertical)",
+  gridGap4ColHorizontal: "4-Column Gap (Horizontal)",
+  gridGap4ColVertical: "4-Column Gap (Vertical)",
+
+  // Layout Constraints
+  singleColumnMaxWidth: "Single Column Max Width",
 };
