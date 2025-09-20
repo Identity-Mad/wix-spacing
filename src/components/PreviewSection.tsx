@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import {
   BreakpointKey,
   SpacingBreakpoint,
@@ -14,7 +14,7 @@ interface PreviewSectionProps {
   typography: TypographyBreakpoint;
 }
 
-export const PreviewSection: React.FC<PreviewSectionProps> = ({
+const PreviewSectionComponent: React.FC<PreviewSectionProps> = ({
   title,
   breakpoint,
   icon,
@@ -549,3 +549,16 @@ export const PreviewSection: React.FC<PreviewSectionProps> = ({
     </div>
   );
 };
+
+// Memoized export for performance optimization
+export const PreviewSection = memo(
+  PreviewSectionComponent,
+  (prevProps, nextProps) => {
+    // Only re-render if spacing or typography actually changed
+    return (
+      prevProps.spacing === nextProps.spacing &&
+      prevProps.typography === nextProps.typography &&
+      prevProps.breakpoint === nextProps.breakpoint
+    );
+  }
+);

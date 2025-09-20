@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { TypographySettings, TypographyBreakpointKey } from "../types";
 import { getTypographyStyles } from "../utils/typography";
 
@@ -11,7 +11,7 @@ interface TypographyControlsProps {
   ) => void;
 }
 
-export const TypographyControls: React.FC<TypographyControlsProps> = ({
+const TypographyControlsComponent: React.FC<TypographyControlsProps> = ({
   typography,
   updateTypography,
 }) => {
@@ -209,3 +209,11 @@ export const TypographyControls: React.FC<TypographyControlsProps> = ({
     </div>
   );
 };
+
+// Memoized export for performance optimization
+export const TypographyControls = memo(
+  TypographyControlsComponent,
+  (prevProps, nextProps) => {
+    return prevProps.typography === nextProps.typography;
+  }
+);

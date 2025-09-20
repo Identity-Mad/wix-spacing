@@ -105,35 +105,37 @@ function App() {
                 setActiveTab={setActiveTab}
               />
 
-              {/* Tab Content */}
-              {activeTab === "desktop" && (
-                <PreviewSection
-                  title="Desktop Preview (1000px+)"
-                  breakpoint="desktop"
-                  icon={<Monitor size={20} className="text-blue-600" />}
-                  spacing={spacing.desktop}
-                  typography={typography.desktop}
-                />
-              )}
-              {activeTab === "tablet" && (
-                <PreviewSection
-                  title="Tablet Preview (≤1000px)"
-                  breakpoint="tablet"
-                  icon={<Tablet size={20} className="text-green-600" />}
-                  spacing={spacing.tablet}
-                  typography={typography.tablet}
-                />
-              )}
-              {activeTab === "mobile" && (
-                <PreviewSection
-                  title="Mobile Preview (≤750px)"
-                  breakpoint="mobile"
-                  icon={<Smartphone size={20} className="text-purple-600" />}
-                  spacing={spacing.mobile}
-                  typography={typography.mobile}
-                />
-              )}
-              {activeTab === "table" && <ReferenceTable spacing={spacing} />}
+              {/* Tab Content - Lazy Loaded for Performance */}
+              <div className="h-full overflow-y-auto">
+                {activeTab === "desktop" && (
+                  <PreviewSection
+                    title="Desktop Preview (1000px+)"
+                    breakpoint="desktop"
+                    icon={<Monitor size={20} className="text-blue-600" />}
+                    spacing={spacing.desktop}
+                    typography={typography.desktop}
+                  />
+                )}
+                {activeTab === "tablet" && (
+                  <PreviewSection
+                    title="Tablet Preview (≤1000px)"
+                    breakpoint="tablet"
+                    icon={<Tablet size={20} className="text-green-600" />}
+                    spacing={spacing.tablet}
+                    typography={typography.tablet}
+                  />
+                )}
+                {activeTab === "mobile" && (
+                  <PreviewSection
+                    title="Mobile Preview (≤750px)"
+                    breakpoint="mobile"
+                    icon={<Smartphone size={20} className="text-purple-600" />}
+                    spacing={spacing.mobile}
+                    typography={typography.mobile}
+                  />
+                )}
+                {activeTab === "table" && <ReferenceTable spacing={spacing} />}
+              </div>
             </div>
           </div>
         </div>

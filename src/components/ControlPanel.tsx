@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Ruler, Type, Settings } from "lucide-react";
 import {
   SpacingValues,
@@ -30,7 +30,7 @@ interface ControlPanelProps {
   importSettings: (file: File) => void;
 }
 
-export const ControlPanel: React.FC<ControlPanelProps> = ({
+const ControlPanelComponent: React.FC<ControlPanelProps> = ({
   spacing,
   typography,
   controlTab,
@@ -104,3 +104,16 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
     </div>
   );
 };
+
+// Memoized export for performance optimization
+export const ControlPanel = memo(
+  ControlPanelComponent,
+  (prevProps, nextProps) => {
+    // Only re-render if relevant props actually changed
+    return (
+      prevProps.controlTab === nextProps.controlTab &&
+      prevProps.spacing === nextProps.spacing &&
+      prevProps.typography === nextProps.typography
+    );
+  }
+);
