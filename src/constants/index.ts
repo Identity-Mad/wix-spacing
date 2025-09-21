@@ -1,4 +1,4 @@
-import { SpacingValues, TypographySettings } from "../types";
+import { SpacingValues, TypographySettings, LayoutSettings } from "../types";
 
 export const initialTypography: TypographySettings = {
   desktop: {
@@ -146,4 +146,8 @@ export const spacingLabels = {
 
   // Layout Constraints
   singleColumnMaxWidth: "Single Column Max Width",
+};
+
+export const initialLayout: LayoutSettings = {
+  previewHeight: 600,
 };

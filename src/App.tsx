@@ -11,8 +11,10 @@ function App() {
   const {
     spacing,
     typography,
+    layout,
     setSpacing,
     setTypography,
+    setLayout,
     resetToDefaults,
     exportSettings,
     importSettings,
@@ -89,54 +91,70 @@ function App() {
             <ControlPanel
               spacing={spacing}
               typography={typography}
+              layout={layout}
               controlTab={controlTab}
               setControlTab={setControlTab}
               updateSpacing={updateSpacing}
               updateTypography={updateTypography}
+              setLayout={setLayout}
               resetToDefaults={resetToDefaults}
               exportSettings={exportSettings}
               importSettings={importSettings}
             />
 
             {/* Tabbed Preview */}
-            <div className="xl:col-span-3 h-[calc(100vh-8rem)]">
-              <TabNavigation
-                activeTab={activeTab}
-                setActiveTab={setActiveTab}
-              />
-
-              {/* Tab Content - Lazy Loaded for Performance */}
-              <div className="h-full overflow-y-auto">
-                {activeTab === "desktop" && (
-                  <PreviewSection
-                    title="Desktop Preview (1000px+)"
-                    breakpoint="desktop"
-                    icon={<Monitor size={20} className="text-blue-600" />}
-                    spacing={spacing.desktop}
-                    typography={typography.desktop}
-                  />
-                )}
-                {activeTab === "tablet" && (
-                  <PreviewSection
-                    title="Tablet Preview (≤1000px)"
-                    breakpoint="tablet"
-                    icon={<Tablet size={20} className="text-green-600" />}
-                    spacing={spacing.tablet}
-                    typography={typography.tablet}
-                  />
-                )}
-                {activeTab === "mobile" && (
-                  <PreviewSection
-                    title="Mobile Preview (≤750px)"
-                    breakpoint="mobile"
-                    icon={<Smartphone size={20} className="text-purple-600" />}
-                    spacing={spacing.mobile}
-                    typography={typography.mobile}
-                  />
-                )}
-                {activeTab === "table" && <ReferenceTable spacing={spacing} />}
+            {activeTab === "table" ? (
+              <div className="xl:col-span-3">
+                <TabNavigation
+                  activeTab={activeTab}
+                  setActiveTab={setActiveTab}
+                />
+                <ReferenceTable spacing={spacing} typography={typography} />
               </div>
-            </div>
+            ) : (
+              <div
+                className="xl:col-span-3 overflow-hidden"
+                style={{ height: `${layout.previewHeight}px` }}
+              >
+                <TabNavigation
+                  activeTab={activeTab}
+                  setActiveTab={setActiveTab}
+                />
+
+                {/* Tab Content - Lazy Loaded for Performance */}
+                <div className="h-full overflow-y-auto">
+                  {activeTab === "desktop" && (
+                    <PreviewSection
+                      title="Desktop Preview (1000px+)"
+                      breakpoint="desktop"
+                      icon={<Monitor size={20} className="text-blue-600" />}
+                      spacing={spacing.desktop}
+                      typography={typography.desktop}
+                    />
+                  )}
+                  {activeTab === "tablet" && (
+                    <PreviewSection
+                      title="Tablet Preview (≤1000px)"
+                      breakpoint="tablet"
+                      icon={<Tablet size={20} className="text-green-600" />}
+                      spacing={spacing.tablet}
+                      typography={typography.tablet}
+                    />
+                  )}
+                  {activeTab === "mobile" && (
+                    <PreviewSection
+                      title="Mobile Preview (≤750px)"
+                      breakpoint="mobile"
+                      icon={
+                        <Smartphone size={20} className="text-purple-600" />
+                      }
+                      spacing={spacing.mobile}
+                      typography={typography.mobile}
+                    />
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

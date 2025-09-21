@@ -48,6 +48,10 @@ export interface SpacingBreakpoint {
   singleColumnMaxWidth: number;
 }
 
+export interface LayoutSettings {
+  previewHeight: number; // in pixels
+}
+
 export type BreakpointKey = keyof SpacingValues;
 export type TypographyBreakpointKey = keyof TypographySettings;
 export type TabKey = BreakpointKey | "table";

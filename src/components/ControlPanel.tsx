@@ -3,6 +3,7 @@ import { Ruler, Type, Settings } from "lucide-react";
 import {
   SpacingValues,
   TypographySettings,
+  LayoutSettings,
   BreakpointKey,
   ControlTabKey,
 } from "../types";
@@ -13,6 +14,7 @@ import { SettingsControls } from "./SettingsControls";
 interface ControlPanelProps {
   spacing: SpacingValues;
   typography: TypographySettings;
+  layout: LayoutSettings;
   controlTab: ControlTabKey;
   setControlTab: (tab: ControlTabKey) => void;
   updateSpacing: (
@@ -25,6 +27,9 @@ interface ControlPanelProps {
     key: keyof TypographySettings["desktop"],
     value: string | number
   ) => void;
+  setLayout: (
+    layout: LayoutSettings | ((prev: LayoutSettings) => LayoutSettings)
+  ) => void;
   resetToDefaults: () => void;
   exportSettings: () => void;
   importSettings: (file: File) => void;
@@ -33,10 +38,12 @@ interface ControlPanelProps {
 const ControlPanelComponent: React.FC<ControlPanelProps> = ({
   spacing,
   typography,
+  layout,
   controlTab,
   setControlTab,
   updateSpacing,
   updateTypography,
+  setLayout,
   resetToDefaults,
   exportSettings,
   importSettings,
@@ -47,7 +54,7 @@ const ControlPanelComponent: React.FC<ControlPanelProps> = ({
       <div className="flex border-b border-gray-200 mb-4 flex-shrink-0">
         <button
           onClick={() => setControlTab("spacing")}
-          className={`flex items-center justify-center px-3 py-2 font-medium text-sm border-b-2 transition-colors ${
+          className={`flex items-center justify-center px-3 py-2 font-medium text-sm border-b-2 transition-colors cursor-pointer ${
             controlTab === "spacing"
               ? "border-blue-600 text-blue-600"
               : "border-transparent text-gray-500 hover:text-gray-700"
@@ -58,7 +65,7 @@ const ControlPanelComponent: React.FC<ControlPanelProps> = ({
         </button>
         <button
           onClick={() => setControlTab("typography")}
-          className={`flex items-center justify-center px-3 py-2 font-medium text-sm border-b-2 transition-colors ${
+          className={`flex items-center justify-center px-3 py-2 font-medium text-sm border-b-2 transition-colors cursor-pointer ${
             controlTab === "typography"
               ? "border-purple-600 text-purple-600"
               : "border-transparent text-gray-500 hover:text-gray-700"
@@ -69,7 +76,7 @@ const ControlPanelComponent: React.FC<ControlPanelProps> = ({
         </button>
         <button
           onClick={() => setControlTab("settings")}
-          className={`flex items-center justify-center px-3 py-2 font-medium text-sm border-b-2 transition-colors ${
+          className={`flex items-center justify-center px-3 py-2 font-medium text-sm border-b-2 transition-colors cursor-pointer ${
             controlTab === "settings"
               ? "border-gray-600 text-gray-600"
               : "border-transparent text-gray-500 hover:text-gray-700"
@@ -95,6 +102,8 @@ const ControlPanelComponent: React.FC<ControlPanelProps> = ({
 
         {controlTab === "settings" && (
           <SettingsControls
+            layout={layout}
+            setLayout={setLayout}
             resetToDefaults={resetToDefaults}
             exportSettings={exportSettings}
             importSettings={importSettings}
@@ -113,7 +122,8 @@ export const ControlPanel = memo(
     return (
       prevProps.controlTab === nextProps.controlTab &&
       prevProps.spacing === nextProps.spacing &&
-      prevProps.typography === nextProps.typography
+      prevProps.typography === nextProps.typography &&
+      prevProps.layout === nextProps.layout
     );
   }
 );

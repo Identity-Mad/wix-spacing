@@ -1,13 +1,20 @@
 import React, { useRef } from "react";
-import { Download, Upload } from "lucide-react";
+import { Download, Upload, Monitor, Maximize2 } from "lucide-react";
+import { LayoutSettings } from "../types";
 
 interface SettingsControlsProps {
+  layout: LayoutSettings;
+  setLayout: (
+    layout: LayoutSettings | ((prev: LayoutSettings) => LayoutSettings)
+  ) => void;
   resetToDefaults: () => void;
   exportSettings: () => void;
   importSettings: (file: File) => void;
 }
 
 export const SettingsControls: React.FC<SettingsControlsProps> = ({
+  layout,
+  setLayout,
   resetToDefaults,
   exportSettings,
   importSettings,
@@ -28,6 +35,44 @@ export const SettingsControls: React.FC<SettingsControlsProps> = ({
   };
   return (
     <div className="space-y-4">
+      <div className="p-3 bg-gray-50 rounded border border-gray-200">
+        <h4 className="font-medium text-gray-800 mb-2 flex items-center gap-2">
+          <Monitor size={16} />
+          Layout Settings
+        </h4>
+        <p className="text-sm text-gray-700 mb-3">
+          Customize the workspace layout to fit your preferences.
+        </p>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Preview Height
+          </label>
+          <div className="flex items-center gap-2">
+            <input
+              type="range"
+              min="400"
+              max="800"
+              step="10"
+              value={layout.previewHeight}
+              onChange={(e) =>
+                setLayout((prev) => ({
+                  ...prev,
+                  previewHeight: parseInt(e.target.value),
+                }))
+              }
+              className="flex-1"
+            />
+            <span className="text-sm text-gray-600 w-12 text-center">
+              {layout.previewHeight}px
+            </span>
+          </div>
+          <p className="text-xs text-gray-500 mt-1">
+            Adjust preview area height for better viewing
+          </p>
+        </div>
+      </div>
+
       <div className="p-3 bg-green-50 rounded border border-green-200">
         <h4 className="font-medium text-green-800 mb-2">
           Export Configuration

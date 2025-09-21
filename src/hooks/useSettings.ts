@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { SpacingValues, TypographySettings } from "../types";
-import { initialSpacing, initialTypography } from "../constants";
+import { SpacingValues, TypographySettings, LayoutSettings } from "../types";
+import { initialSpacing, initialTypography, initialLayout } from "../constants";
 
 export const useSettings = () => {
   const migrateTypography = (oldTypography: any) => {
@@ -25,6 +25,7 @@ export const useSettings = () => {
     try {
       const savedSpacing = localStorage.getItem("wix-spacing-settings");
       const savedTypography = localStorage.getItem("wix-typography-settings");
+      const savedLayout = localStorage.getItem("wix-layout-settings");
 
       let typography = initialTypography;
       if (savedTypography) {
@@ -35,12 +36,14 @@ export const useSettings = () => {
       return {
         spacing: savedSpacing ? JSON.parse(savedSpacing) : initialSpacing,
         typography,
+        layout: savedLayout ? JSON.parse(savedLayout) : initialLayout,
       };
     } catch (error) {
       console.warn("Failed to load settings from localStorage:", error);
       return {
         spacing: initialSpacing,
         typography: initialTypography,
+        layout: initialLayout,
       };
     }
   };
@@ -49,6 +52,7 @@ export const useSettings = () => {
   const [typography, setTypography] = useState<TypographySettings>(
     loadSettings().typography
   );
+  const [layout, setLayout] = useState<LayoutSettings>(loadSettings().layout);
 
   // Save settings to localStorage whenever they change
   useEffect(() => {
@@ -73,15 +77,25 @@ export const useSettings = () => {
     }
   }, [typography]);
 
+  useEffect(() => {
+    try {
+      localStorage.setItem("wix-layout-settings", JSON.stringify(layout));
+    } catch (error) {
+      console.warn("Failed to save layout settings to localStorage:", error);
+    }
+  }, [layout]);
+
   const resetToDefaults = () => {
     setSpacing(initialSpacing);
     setTypography(initialTypography);
+    setLayout(initialLayout);
   };
 
   const exportSettings = () => {
     const settings = {
       spacing,
       typography,
+      layout,
       exportDate: new Date().toISOString(),
       version: "1.0",
     };
@@ -113,6 +127,10 @@ export const useSettings = () => {
         if (importedSettings.spacing && importedSettings.typography) {
           setSpacing(importedSettings.spacing);
           setTypography(importedSettings.typography);
+          // Import layout if available, otherwise keep current
+          if (importedSettings.layout) {
+            setLayout(importedSettings.layout);
+          }
           alert("Settings imported successfully!");
         } else {
           alert(
@@ -132,8 +150,10 @@ export const useSettings = () => {
   return {
     spacing,
     typography,
+    layout,
     setSpacing,
     setTypography,
+    setLayout,
     resetToDefaults,
     exportSettings,
     importSettings,
