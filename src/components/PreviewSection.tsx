@@ -139,7 +139,7 @@ const PreviewSectionComponent: React.FC<PreviewSectionProps> = ({
                     clear separation.
                   </p>
 
-                  <div style={{ marginTop: `${s.h3ToContent}px` }}>
+                  <div style={{ marginTop: `${s.subsections}px` }}>
                     <h3 style={getTypographyStyles(typography, "h3")}>
                       H3 Subsection
                     </h3>
@@ -154,6 +154,27 @@ const PreviewSectionComponent: React.FC<PreviewSectionProps> = ({
                         </li>
                         <li style={{ marginTop: `${s.bulletPoints}px` }}>
                           • Third bullet point
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Second H3 subsection to demonstrate subsection spacing */}
+                  <div style={{ marginTop: `${s.subsections}px` }}>
+                    <h3 style={getTypographyStyles(typography, "h3")}>
+                      Second H3 Subsection
+                    </h3>
+                    <div style={{ marginTop: `${s.h3ToContent}px` }}>
+                      <ul
+                        className="space-y-0"
+                        style={getTypographyStyles(typography, "p1")}
+                      >
+                        <li>• Another bullet point demonstrating spacing</li>
+                        <li style={{ marginTop: `${s.bulletPoints}px` }}>
+                          • Second bullet in this subsection
+                        </li>
+                        <li style={{ marginTop: `${s.bulletPoints}px` }}>
+                          • Final bullet point
                         </li>
                       </ul>
                     </div>

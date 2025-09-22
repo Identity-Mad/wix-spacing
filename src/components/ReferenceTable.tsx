@@ -212,20 +212,22 @@ export const ReferenceTable: React.FC<ReferenceTableProps> = ({
         return "Global page padding for left and right margins";
       case "sectionPaddingLeftRight":
         return "Section-level left and right padding";
+      case "sectionPaddingTopBottom":
+        return "Section-level top and bottom padding";
       case "majorSections":
-        return "Maximum separation for distinct content areas";
+        return "Separation for distinct content areas";
       case "h1ToContent":
         return "Strong hierarchy for H1 section titles";
       case "subsections":
-        return "Clear but connected section breaks";
+        return "Section breaks within a section";
       case "subtitleToH2":
         return "Section label to H2 header relationship";
       case "h2ToNext":
-        return "H2 to next element transition spacing";
+        return "H2 to content transition spacing";
       case "aboveButtons":
         return "Breathing room before CTAs";
       case "h3ToContent":
-        return "H3 to content tight ownership spacing";
+        return "H3 to content transition spacing";
       case "bulletPoints":
         return "List item separation";
       case "paragraphSpacing":
@@ -243,7 +245,7 @@ export const ReferenceTable: React.FC<ReferenceTableProps> = ({
       case "gridGap4ColVertical":
         return "Vertical spacing in 4-column layouts";
       case "singleColumnMaxWidth":
-        return "Max width for single-column content (articles, blog posts)";
+        return "Max width for single-column content";
       default:
         return "";
     }
@@ -350,77 +352,93 @@ export const ReferenceTable: React.FC<ReferenceTableProps> = ({
               Desktop
             </h4>
             <div className="space-y-2 text-sm">
+              {/* Font Family */}
               <div className="flex justify-between">
                 <span className="text-gray-600">Font Family:</span>
                 <span className="font-mono">
                   {typography.desktop.fontFamily}
                 </span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">H1 Size:</span>
-                <span className="font-mono text-blue-600">
-                  {typography.desktop.h1Size}px
-                </span>
+              
+              {/* Sizes */}
+              <div className="border-t border-gray-300 pt-2 mt-3">
+                <div className="text-xs font-medium text-gray-500 mb-2">SIZES</div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">H1 Size:</span>
+                  <span className="font-mono text-blue-600">
+                    {typography.desktop.h1Size}px
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">H2 Size:</span>
+                  <span className="font-mono text-blue-600">
+                    {typography.desktop.h2Size}px
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">H3 Size:</span>
+                  <span className="font-mono text-blue-600">
+                    {typography.desktop.h3Size}px
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">P1 Size:</span>
+                  <span className="font-mono text-blue-600">
+                    {typography.desktop.p1Size}px
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">P2 Size:</span>
+                  <span className="font-mono text-blue-600">
+                    {typography.desktop.p2Size}px
+                  </span>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">H2 Size:</span>
-                <span className="font-mono text-blue-600">
-                  {typography.desktop.h2Size}px
-                </span>
+
+              {/* Heading Settings */}
+              <div className="border-t border-gray-300 pt-2 mt-3">
+                <div className="text-xs font-medium text-gray-500 mb-2">HEADING SETTINGS</div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Line Height:</span>
+                  <span className="font-mono">
+                    {typography.desktop.headingLineHeight}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Letter Spacing:</span>
+                  <span className="font-mono">
+                    {typography.desktop.headingLetterSpacing}em
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Font Weight:</span>
+                  <span className="font-mono">
+                    {typography.desktop.headingFontWeight}
+                  </span>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">H3 Size:</span>
-                <span className="font-mono text-blue-600">
-                  {typography.desktop.h3Size}px
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">P1 Size:</span>
-                <span className="font-mono text-blue-600">
-                  {typography.desktop.p1Size}px
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">P2 Size:</span>
-                <span className="font-mono text-blue-600">
-                  {typography.desktop.p2Size}px
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Heading Line Height:</span>
-                <span className="font-mono">
-                  {typography.desktop.headingLineHeight}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Body Line Height:</span>
-                <span className="font-mono">
-                  {typography.desktop.bodyLineHeight}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Heading Letter Spacing:</span>
-                <span className="font-mono">
-                  {typography.desktop.headingLetterSpacing}em
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Body Letter Spacing:</span>
-                <span className="font-mono">
-                  {typography.desktop.bodyLetterSpacing}em
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Heading Font Weight:</span>
-                <span className="font-mono">
-                  {typography.desktop.headingFontWeight}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Body Font Weight:</span>
-                <span className="font-mono">
-                  {typography.desktop.bodyFontWeight}
-                </span>
+
+              {/* Body Settings */}
+              <div className="border-t border-gray-300 pt-2 mt-3">
+                <div className="text-xs font-medium text-gray-500 mb-2">BODY SETTINGS</div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Line Height:</span>
+                  <span className="font-mono">
+                    {typography.desktop.bodyLineHeight}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Letter Spacing:</span>
+                  <span className="font-mono">
+                    {typography.desktop.bodyLetterSpacing}em
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Font Weight:</span>
+                  <span className="font-mono">
+                    {typography.desktop.bodyFontWeight}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -431,77 +449,93 @@ export const ReferenceTable: React.FC<ReferenceTableProps> = ({
               Tablet
             </h4>
             <div className="space-y-2 text-sm">
+              {/* Font Family */}
               <div className="flex justify-between">
                 <span className="text-gray-600">Font Family:</span>
                 <span className="font-mono">
                   {typography.tablet.fontFamily}
                 </span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">H1 Size:</span>
-                <span className="font-mono text-green-600">
-                  {typography.tablet.h1Size}px
-                </span>
+              
+              {/* Sizes */}
+              <div className="border-t border-gray-300 pt-2 mt-3">
+                <div className="text-xs font-medium text-gray-500 mb-2">SIZES</div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">H1 Size:</span>
+                  <span className="font-mono text-green-600">
+                    {typography.tablet.h1Size}px
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">H2 Size:</span>
+                  <span className="font-mono text-green-600">
+                    {typography.tablet.h2Size}px
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">H3 Size:</span>
+                  <span className="font-mono text-green-600">
+                    {typography.tablet.h3Size}px
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">P1 Size:</span>
+                  <span className="font-mono text-green-600">
+                    {typography.tablet.p1Size}px
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">P2 Size:</span>
+                  <span className="font-mono text-green-600">
+                    {typography.tablet.p2Size}px
+                  </span>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">H2 Size:</span>
-                <span className="font-mono text-green-600">
-                  {typography.tablet.h2Size}px
-                </span>
+
+              {/* Heading Settings */}
+              <div className="border-t border-gray-300 pt-2 mt-3">
+                <div className="text-xs font-medium text-gray-500 mb-2">HEADING SETTINGS</div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Line Height:</span>
+                  <span className="font-mono">
+                    {typography.tablet.headingLineHeight}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Letter Spacing:</span>
+                  <span className="font-mono">
+                    {typography.tablet.headingLetterSpacing}em
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Font Weight:</span>
+                  <span className="font-mono">
+                    {typography.tablet.headingFontWeight}
+                  </span>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">H3 Size:</span>
-                <span className="font-mono text-green-600">
-                  {typography.tablet.h3Size}px
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">P1 Size:</span>
-                <span className="font-mono text-green-600">
-                  {typography.tablet.p1Size}px
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">P2 Size:</span>
-                <span className="font-mono text-green-600">
-                  {typography.tablet.p2Size}px
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Heading Line Height:</span>
-                <span className="font-mono">
-                  {typography.tablet.headingLineHeight}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Body Line Height:</span>
-                <span className="font-mono">
-                  {typography.tablet.bodyLineHeight}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Heading Letter Spacing:</span>
-                <span className="font-mono">
-                  {typography.tablet.headingLetterSpacing}em
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Body Letter Spacing:</span>
-                <span className="font-mono">
-                  {typography.tablet.bodyLetterSpacing}em
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Heading Font Weight:</span>
-                <span className="font-mono">
-                  {typography.tablet.headingFontWeight}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Body Font Weight:</span>
-                <span className="font-mono">
-                  {typography.tablet.bodyFontWeight}
-                </span>
+
+              {/* Body Settings */}
+              <div className="border-t border-gray-300 pt-2 mt-3">
+                <div className="text-xs font-medium text-gray-500 mb-2">BODY SETTINGS</div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Line Height:</span>
+                  <span className="font-mono">
+                    {typography.tablet.bodyLineHeight}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Letter Spacing:</span>
+                  <span className="font-mono">
+                    {typography.tablet.bodyLetterSpacing}em
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Font Weight:</span>
+                  <span className="font-mono">
+                    {typography.tablet.bodyFontWeight}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -512,77 +546,93 @@ export const ReferenceTable: React.FC<ReferenceTableProps> = ({
               Mobile
             </h4>
             <div className="space-y-2 text-sm">
+              {/* Font Family */}
               <div className="flex justify-between">
                 <span className="text-gray-600">Font Family:</span>
                 <span className="font-mono">
                   {typography.mobile.fontFamily}
                 </span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">H1 Size:</span>
-                <span className="font-mono text-purple-600">
-                  {typography.mobile.h1Size}px
-                </span>
+              
+              {/* Sizes */}
+              <div className="border-t border-gray-300 pt-2 mt-3">
+                <div className="text-xs font-medium text-gray-500 mb-2">SIZES</div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">H1 Size:</span>
+                  <span className="font-mono text-purple-600">
+                    {typography.mobile.h1Size}px
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">H2 Size:</span>
+                  <span className="font-mono text-purple-600">
+                    {typography.mobile.h2Size}px
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">H3 Size:</span>
+                  <span className="font-mono text-purple-600">
+                    {typography.mobile.h3Size}px
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">P1 Size:</span>
+                  <span className="font-mono text-purple-600">
+                    {typography.mobile.p1Size}px
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">P2 Size:</span>
+                  <span className="font-mono text-purple-600">
+                    {typography.mobile.p2Size}px
+                  </span>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">H2 Size:</span>
-                <span className="font-mono text-purple-600">
-                  {typography.mobile.h2Size}px
-                </span>
+
+              {/* Heading Settings */}
+              <div className="border-t border-gray-300 pt-2 mt-3">
+                <div className="text-xs font-medium text-gray-500 mb-2">HEADING SETTINGS</div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Line Height:</span>
+                  <span className="font-mono">
+                    {typography.mobile.headingLineHeight}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Letter Spacing:</span>
+                  <span className="font-mono">
+                    {typography.mobile.headingLetterSpacing}em
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Font Weight:</span>
+                  <span className="font-mono">
+                    {typography.mobile.headingFontWeight}
+                  </span>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">H3 Size:</span>
-                <span className="font-mono text-purple-600">
-                  {typography.mobile.h3Size}px
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">P1 Size:</span>
-                <span className="font-mono text-purple-600">
-                  {typography.mobile.p1Size}px
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">P2 Size:</span>
-                <span className="font-mono text-purple-600">
-                  {typography.mobile.p2Size}px
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Heading Line Height:</span>
-                <span className="font-mono">
-                  {typography.mobile.headingLineHeight}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Body Line Height:</span>
-                <span className="font-mono">
-                  {typography.mobile.bodyLineHeight}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Heading Letter Spacing:</span>
-                <span className="font-mono">
-                  {typography.mobile.headingLetterSpacing}em
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Body Letter Spacing:</span>
-                <span className="font-mono">
-                  {typography.mobile.bodyLetterSpacing}em
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Heading Font Weight:</span>
-                <span className="font-mono">
-                  {typography.mobile.headingFontWeight}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Body Font Weight:</span>
-                <span className="font-mono">
-                  {typography.mobile.bodyFontWeight}
-                </span>
+
+              {/* Body Settings */}
+              <div className="border-t border-gray-300 pt-2 mt-3">
+                <div className="text-xs font-medium text-gray-500 mb-2">BODY SETTINGS</div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Line Height:</span>
+                  <span className="font-mono">
+                    {typography.mobile.bodyLineHeight}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Letter Spacing:</span>
+                  <span className="font-mono">
+                    {typography.mobile.bodyLetterSpacing}em
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Font Weight:</span>
+                  <span className="font-mono">
+                    {typography.mobile.bodyFontWeight}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
