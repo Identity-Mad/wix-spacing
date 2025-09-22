@@ -114,7 +114,12 @@ function App() {
             ) : (
               <div
                 className="xl:col-span-3 overflow-hidden"
-                style={{ height: `${layout.previewHeight}px` }}
+                style={{
+                  height:
+                    layout.previewHeight === "auto"
+                      ? "calc(100vh - 8rem)"
+                      : `${layout.previewHeight}px`,
+                }}
               >
                 <TabNavigation
                   activeTab={activeTab}

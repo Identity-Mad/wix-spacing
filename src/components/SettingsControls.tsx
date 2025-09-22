@@ -52,23 +52,36 @@ export const SettingsControls: React.FC<SettingsControlsProps> = ({
             <input
               type="range"
               min="400"
-              max="800"
+              max="1200"
               step="10"
-              value={layout.previewHeight}
-              onChange={(e) =>
-                setLayout((prev) => ({
-                  ...prev,
-                  previewHeight: parseInt(e.target.value),
-                }))
+              value={
+                layout.previewHeight === "auto" ? 1200 : layout.previewHeight
               }
+              onChange={(e) => {
+                const value = parseInt(e.target.value);
+                if (value === 1200) {
+                  setLayout((prev) => ({
+                    ...prev,
+                    previewHeight: "auto",
+                  }));
+                } else {
+                  setLayout((prev) => ({
+                    ...prev,
+                    previewHeight: value,
+                  }));
+                }
+              }}
               className="flex-1"
             />
-            <span className="text-sm text-gray-600 w-12 text-center">
-              {layout.previewHeight}px
+            <span className="text-sm text-gray-600 w-16 text-center">
+              {layout.previewHeight === "auto"
+                ? "Auto"
+                : `${layout.previewHeight}px`}
             </span>
           </div>
           <p className="text-xs text-gray-500 mt-1">
-            Adjust preview area height for better viewing
+            Adjust preview area height. Set to max for auto height (matches
+            control panel)
           </p>
         </div>
       </div>

@@ -49,7 +49,7 @@ export interface SpacingBreakpoint {
 }
 
 export interface LayoutSettings {
-  previewHeight: number; // in pixels
+  previewHeight: number | "auto"; // in pixels or "auto" to match control panel
   showDistanceMeasurement: boolean; // toggle for distance measurement overlay
 }
 
