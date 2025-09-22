@@ -359,10 +359,12 @@ export const ReferenceTable: React.FC<ReferenceTableProps> = ({
                   {typography.desktop.fontFamily}
                 </span>
               </div>
-              
+
               {/* Sizes */}
               <div className="border-t border-gray-300 pt-2 mt-3">
-                <div className="text-xs font-medium text-gray-500 mb-2">SIZES</div>
+                <div className="text-xs font-medium text-gray-500 mb-2">
+                  SIZES
+                </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">H1 Size:</span>
                   <span className="font-mono text-blue-600">
@@ -397,7 +399,9 @@ export const ReferenceTable: React.FC<ReferenceTableProps> = ({
 
               {/* Heading Settings */}
               <div className="border-t border-gray-300 pt-2 mt-3">
-                <div className="text-xs font-medium text-gray-500 mb-2">HEADING SETTINGS</div>
+                <div className="text-xs font-medium text-gray-500 mb-2">
+                  HEADING SETTINGS
+                </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Line Height:</span>
                   <span className="font-mono">
@@ -420,7 +424,9 @@ export const ReferenceTable: React.FC<ReferenceTableProps> = ({
 
               {/* Body Settings */}
               <div className="border-t border-gray-300 pt-2 mt-3">
-                <div className="text-xs font-medium text-gray-500 mb-2">BODY SETTINGS</div>
+                <div className="text-xs font-medium text-gray-500 mb-2">
+                  BODY SETTINGS
+                </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Line Height:</span>
                   <span className="font-mono">
@@ -456,10 +462,12 @@ export const ReferenceTable: React.FC<ReferenceTableProps> = ({
                   {typography.tablet.fontFamily}
                 </span>
               </div>
-              
+
               {/* Sizes */}
               <div className="border-t border-gray-300 pt-2 mt-3">
-                <div className="text-xs font-medium text-gray-500 mb-2">SIZES</div>
+                <div className="text-xs font-medium text-gray-500 mb-2">
+                  SIZES
+                </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">H1 Size:</span>
                   <span className="font-mono text-green-600">
@@ -494,7 +502,9 @@ export const ReferenceTable: React.FC<ReferenceTableProps> = ({
 
               {/* Heading Settings */}
               <div className="border-t border-gray-300 pt-2 mt-3">
-                <div className="text-xs font-medium text-gray-500 mb-2">HEADING SETTINGS</div>
+                <div className="text-xs font-medium text-gray-500 mb-2">
+                  HEADING SETTINGS
+                </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Line Height:</span>
                   <span className="font-mono">
@@ -517,7 +527,9 @@ export const ReferenceTable: React.FC<ReferenceTableProps> = ({
 
               {/* Body Settings */}
               <div className="border-t border-gray-300 pt-2 mt-3">
-                <div className="text-xs font-medium text-gray-500 mb-2">BODY SETTINGS</div>
+                <div className="text-xs font-medium text-gray-500 mb-2">
+                  BODY SETTINGS
+                </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Line Height:</span>
                   <span className="font-mono">
@@ -553,10 +565,12 @@ export const ReferenceTable: React.FC<ReferenceTableProps> = ({
                   {typography.mobile.fontFamily}
                 </span>
               </div>
-              
+
               {/* Sizes */}
               <div className="border-t border-gray-300 pt-2 mt-3">
-                <div className="text-xs font-medium text-gray-500 mb-2">SIZES</div>
+                <div className="text-xs font-medium text-gray-500 mb-2">
+                  SIZES
+                </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">H1 Size:</span>
                   <span className="font-mono text-purple-600">
@@ -591,7 +605,9 @@ export const ReferenceTable: React.FC<ReferenceTableProps> = ({
 
               {/* Heading Settings */}
               <div className="border-t border-gray-300 pt-2 mt-3">
-                <div className="text-xs font-medium text-gray-500 mb-2">HEADING SETTINGS</div>
+                <div className="text-xs font-medium text-gray-500 mb-2">
+                  HEADING SETTINGS
+                </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Line Height:</span>
                   <span className="font-mono">
@@ -614,7 +630,9 @@ export const ReferenceTable: React.FC<ReferenceTableProps> = ({
 
               {/* Body Settings */}
               <div className="border-t border-gray-300 pt-2 mt-3">
-                <div className="text-xs font-medium text-gray-500 mb-2">BODY SETTINGS</div>
+                <div className="text-xs font-medium text-gray-500 mb-2">
+                  BODY SETTINGS
+                </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Line Height:</span>
                   <span className="font-mono">
