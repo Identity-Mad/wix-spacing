@@ -150,4 +150,5 @@ export const spacingLabels = {
 
 export const initialLayout: LayoutSettings = {
   previewHeight: 600,
+  showDistanceMeasurement: false,
 };

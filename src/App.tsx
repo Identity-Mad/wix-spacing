@@ -130,6 +130,7 @@ function App() {
                       icon={<Monitor size={20} className="text-blue-600" />}
                       spacing={spacing.desktop}
                       typography={typography.desktop}
+                      layout={layout}
                     />
                   )}
                   {activeTab === "tablet" && (
@@ -139,6 +140,7 @@ function App() {
                       icon={<Tablet size={20} className="text-green-600" />}
                       spacing={spacing.tablet}
                       typography={typography.tablet}
+                      layout={layout}
                     />
                   )}
                   {activeTab === "mobile" && (
@@ -150,6 +152,7 @@ function App() {
                       }
                       spacing={spacing.mobile}
                       typography={typography.mobile}
+                      layout={layout}
                     />
                   )}
                 </div>

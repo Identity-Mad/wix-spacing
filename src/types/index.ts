@@ -50,6 +50,7 @@ export interface SpacingBreakpoint {
 
 export interface LayoutSettings {
   previewHeight: number; // in pixels
+  showDistanceMeasurement: boolean; // toggle for distance measurement overlay
 }
 
 export type BreakpointKey = keyof SpacingValues;

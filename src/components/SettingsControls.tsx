@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Download, Upload, Monitor, Maximize2 } from "lucide-react";
+import { Download, Upload, Monitor, Maximize2, Ruler } from "lucide-react";
 import { LayoutSettings } from "../types";
 
 interface SettingsControlsProps {
@@ -71,6 +71,47 @@ export const SettingsControls: React.FC<SettingsControlsProps> = ({
             Adjust preview area height for better viewing
           </p>
         </div>
+      </div>
+
+      <div className="p-3 bg-orange-50 rounded border border-orange-200">
+        <h4 className="font-medium text-orange-800 mb-2 flex items-center gap-2">
+          <Ruler size={16} />
+          Distance Measurement
+        </h4>
+        <p className="text-sm text-orange-700 mb-3">
+          Toggle distance measurement overlay to see spacing between elements on
+          hover.
+        </p>
+
+        <div className="flex items-center justify-between">
+          <label className="text-sm font-medium text-orange-700">
+            Enable Distance Measurement
+          </label>
+          <button
+            onClick={() =>
+              setLayout((prev) => ({
+                ...prev,
+                showDistanceMeasurement: !prev.showDistanceMeasurement,
+              }))
+            }
+            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+              layout.showDistanceMeasurement ? "bg-orange-600" : "bg-gray-200"
+            }`}
+          >
+            <span
+              className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                layout.showDistanceMeasurement
+                  ? "translate-x-6"
+                  : "translate-x-1"
+              }`}
+            />
+          </button>
+        </div>
+        <p className="text-xs text-orange-600 mt-1">
+          {layout.showDistanceMeasurement
+            ? "Distance measurement is active - hover over elements to see measurements"
+            : "Click to enable distance measurement overlay"}
+        </p>
       </div>
 
       <div className="p-3 bg-green-50 rounded border border-green-200">
