@@ -1,5 +1,5 @@
-import React from "react";
-import { Ruler, Type, Printer } from "lucide-react";
+import React, { useState } from "react";
+import { Ruler, Type, Printer, Eye, EyeOff, RefreshCw } from "lucide-react";
 import { SpacingValues, TypographySettings } from "../types";
 import { spacingLabels } from "../constants";
 
@@ -12,6 +12,50 @@ export const ReferenceTable: React.FC<ReferenceTableProps> = ({
   spacing,
   typography,
 }) => {
+  const [showNon8ptMultiples, setShowNon8ptMultiples] = useState(false);
+  const [showSameAcrossBreakpoints, setShowSameAcrossBreakpoints] =
+    useState(false);
+
+  // Helper function to check if a value is a multiple of 8
+  const isMultipleOf8 = (value: number) => value % 8 === 0;
+
+  // Helper function to check if all breakpoints have the same value
+  const areAllBreakpointsSame = (key: keyof typeof spacing.desktop) => {
+    return (
+      spacing.desktop[key] === spacing.tablet[key] &&
+      spacing.tablet[key] === spacing.mobile[key]
+    );
+  };
+
+  // Helper function to get the color for a value based on toggles
+  const getValueColor = (
+    value: number,
+    key: keyof typeof spacing.desktop,
+    breakpoint: "desktop" | "tablet" | "mobile"
+  ) => {
+    // If showing same across breakpoints and all are the same, use gray
+    if (showSameAcrossBreakpoints && areAllBreakpointsSame(key)) {
+      return "text-gray-600";
+    }
+
+    // If showing non-8pt multiples and this value is not a multiple of 8, use orange
+    if (showNon8ptMultiples && !isMultipleOf8(value)) {
+      return "text-orange-600";
+    }
+
+    // Default colors for breakpoints
+    switch (breakpoint) {
+      case "desktop":
+        return "text-blue-600";
+      case "tablet":
+        return "text-green-600";
+      case "mobile":
+        return "text-purple-600";
+      default:
+        return "text-gray-600";
+    }
+  };
+
   const handlePrint = () => {
     try {
       console.log("Print button clicked"); // Debug log
@@ -63,10 +107,12 @@ export const ReferenceTable: React.FC<ReferenceTableProps> = ({
                 let displayValue = value;
                 if (typeof value === "string") {
                   displayValue = value;
-                } else {
+                } else if (typeof value === "number") {
                   if (key.includes("Size")) displayValue = value + "px";
                   else if (key.includes("Spacing")) displayValue = value + "em";
                   else displayValue = value.toString();
+                } else {
+                  displayValue = String(value);
                 }
 
                 return `
@@ -251,21 +297,56 @@ export const ReferenceTable: React.FC<ReferenceTableProps> = ({
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6">
-      <div className="flex items-center justify-between mb-4 pb-2 border-b border-gray-200">
-        <div className="flex items-center gap-2">
-          <Ruler size={20} className="text-gray-600" />
-          <h2 className="text-lg font-semibold text-gray-800">
-            Spacing Reference Table
-          </h2>
+      <div className="mb-4 pb-2 border-b border-gray-200">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <Ruler size={20} className="text-gray-600" />
+            <h2 className="text-lg font-semibold text-gray-800">
+              Spacing Reference Table
+            </h2>
+          </div>
+          <button
+            onClick={handlePrint}
+            className="flex items-center gap-2 px-3 py-1.5 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors cursor-pointer"
+            title="Print Reference Table"
+          >
+            <Printer size={14} />
+            Print
+          </button>
         </div>
-        <button
-          onClick={handlePrint}
-          className="flex items-center gap-2 px-3 py-1.5 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors cursor-pointer"
-          title="Print Reference Table"
-        >
-          <Printer size={14} />
-          Print
-        </button>
+
+        {/* Toggle Controls */}
+        <div className="flex gap-4 text-sm">
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={showNon8ptMultiples}
+              onChange={(e) => setShowNon8ptMultiples(e.target.checked)}
+              className="rounded border-gray-300 text-orange-600 focus:ring-orange-500"
+            />
+            <span className="flex items-center gap-1">
+              {showNon8ptMultiples ? <Eye size={14} /> : <EyeOff size={14} />}
+              Show orange for non-8pt multiples
+            </span>
+          </label>
+
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={showSameAcrossBreakpoints}
+              onChange={(e) => setShowSameAcrossBreakpoints(e.target.checked)}
+              className="rounded border-gray-300 text-gray-600 focus:ring-gray-500"
+            />
+            <span className="flex items-center gap-1">
+              {showSameAcrossBreakpoints ? (
+                <Eye size={14} />
+              ) : (
+                <EyeOff size={14} />
+              )}
+              Show gray when all breakpoints match
+            </span>
+          </label>
+        </div>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
@@ -288,39 +369,35 @@ export const ReferenceTable: React.FC<ReferenceTableProps> = ({
             {Object.entries(spacingLabels).map(([key, label]) => (
               <tr key={key} className="border-b border-gray-100">
                 <td className="p-3 font-medium">{label}</td>
-                <td className="p-3 text-center text-blue-600 font-mono">
+                <td className="p-3 text-center font-mono">
                   <span
-                    className={
-                      spacing.desktop[key as keyof typeof spacing.desktop] %
-                        8 ===
-                      0
-                        ? ""
-                        : "text-orange-600"
-                    }
+                    className={getValueColor(
+                      spacing.desktop[key as keyof typeof spacing.desktop],
+                      key as keyof typeof spacing.desktop,
+                      "desktop"
+                    )}
                   >
                     {spacing.desktop[key as keyof typeof spacing.desktop]}px
                   </span>
                 </td>
-                <td className="p-3 text-center text-green-600 font-mono">
+                <td className="p-3 text-center font-mono">
                   <span
-                    className={
-                      spacing.tablet[key as keyof typeof spacing.tablet] % 8 ===
-                      0
-                        ? ""
-                        : "text-orange-600"
-                    }
+                    className={getValueColor(
+                      spacing.tablet[key as keyof typeof spacing.tablet],
+                      key as keyof typeof spacing.desktop,
+                      "tablet"
+                    )}
                   >
                     {spacing.tablet[key as keyof typeof spacing.tablet]}px
                   </span>
                 </td>
-                <td className="p-3 text-center text-purple-600 font-mono">
+                <td className="p-3 text-center font-mono">
                   <span
-                    className={
-                      spacing.mobile[key as keyof typeof spacing.mobile] % 8 ===
-                      0
-                        ? ""
-                        : "text-orange-600"
-                    }
+                    className={getValueColor(
+                      spacing.mobile[key as keyof typeof spacing.mobile],
+                      key as keyof typeof spacing.desktop,
+                      "mobile"
+                    )}
                   >
                     {spacing.mobile[key as keyof typeof spacing.mobile]}px
                   </span>
