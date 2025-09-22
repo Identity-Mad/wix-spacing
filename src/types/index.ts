@@ -38,7 +38,7 @@ export interface SpacingBreakpoint {
   aboveButtons: number;
   h3ToContent: number;
   bulletPoints: number;
-  paragraphSpacing: number;
+  paragraphSpacing: number; // Deprecated - now calculated from font size × line height
   gridGap2ColHorizontal: number;
   gridGap2ColVertical: number;
   gridGap3ColHorizontal: number;

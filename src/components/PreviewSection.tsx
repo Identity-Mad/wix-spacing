@@ -109,12 +109,19 @@ const PreviewSectionComponent: React.FC<PreviewSectionProps> = ({
                   This content follows the H1 with proper hierarchical spacing
                   to establish clear visual relationships.
                 </p>
-                <div style={{ marginTop: `${s.paragraphSpacing}px` }}>
+                <div
+                  style={{
+                    marginTop: `${(
+                      typography.p1Size * typography.bodyLineHeight
+                    ).toFixed(1)}px`,
+                  }}
+                >
                   <p style={getTypographyStyles(typography, "p1")}>
                     Natural paragraph spacing maintains reading flow while
                     respecting the overall design system.
                   </p>
                 </div>
+                {/* Paragraph spacing: {typography.p1Size}px × {typography.bodyLineHeight} = {(typography.p1Size * typography.bodyLineHeight).toFixed(1)}px */}
               </div>
             </SectionPadding>
           </div>
@@ -341,15 +348,17 @@ const PreviewSectionComponent: React.FC<PreviewSectionProps> = ({
 
                 <div style={{ marginTop: `${s.h2ToNext}px` }}>
                   {/* 2 Column Grid */}
-                  <div className="mb-4">
-                    <h3
-                      style={getTypographyStyles(typography, "h3")}
-                      className="mb-2"
-                    >
+                  <div
+                    style={{
+                      marginTop: `${s.gridGap2ColVertical}px`,
+                      marginBottom: `${s.gridGap2ColVertical}px`,
+                    }}
+                  >
+                    <h3 style={getTypographyStyles(typography, "h3")}>
                       2-Column Grid ({s.gridGap2ColHorizontal}px ×{" "}
                       {s.gridGap2ColVertical}px gap)
                     </h3>
-                    <div style={{ marginBottom: `${s.h3ToContent}px` }}>
+                    <div style={{ marginTop: `${s.gridGap2ColVertical}px` }}>
                       <div
                         className="grid grid-cols-2"
                         style={{
@@ -386,15 +395,17 @@ const PreviewSectionComponent: React.FC<PreviewSectionProps> = ({
                   </div>
 
                   {/* 3 Column Grid */}
-                  <div className="mb-4">
-                    <h3
-                      style={getTypographyStyles(typography, "h3")}
-                      className="mb-2"
-                    >
+                  <div
+                    style={{
+                      marginTop: `${s.gridGap3ColVertical}px`,
+                      marginBottom: `${s.gridGap3ColVertical}px`,
+                    }}
+                  >
+                    <h3 style={getTypographyStyles(typography, "h3")}>
                       3-Column Grid ({s.gridGap3ColHorizontal}px ×{" "}
                       {s.gridGap3ColVertical}px gap)
                     </h3>
-                    <div style={{ marginBottom: `${s.h3ToContent}px` }}>
+                    <div style={{ marginTop: `${s.gridGap3ColVertical}px` }}>
                       <div
                         className="grid grid-cols-3"
                         style={{
@@ -443,15 +454,17 @@ const PreviewSectionComponent: React.FC<PreviewSectionProps> = ({
                   </div>
 
                   {/* 4 Column Grid */}
-                  <div>
-                    <h3
-                      style={getTypographyStyles(typography, "h3")}
-                      className="mb-2"
-                    >
+                  <div
+                    style={{
+                      marginTop: `${s.gridGap4ColVertical}px`,
+                      marginBottom: `${s.gridGap4ColVertical}px`,
+                    }}
+                  >
+                    <h3 style={getTypographyStyles(typography, "h3")}>
                       4-Column Grid ({s.gridGap4ColHorizontal}px ×{" "}
                       {s.gridGap4ColVertical}px gap)
                     </h3>
-                    <div style={{ marginBottom: `${s.h3ToContent}px` }}>
+                    <div style={{ marginTop: `${s.gridGap4ColVertical}px` }}>
                       <div
                         className="grid grid-cols-4"
                         style={{
@@ -542,10 +555,7 @@ const PreviewSectionComponent: React.FC<PreviewSectionProps> = ({
                           ? "100% (no limit)"
                           : `${s.singleColumnMaxWidth}px`}
                       </p>
-                      <p
-                        style={getTypographyStyles(typography, "p1")}
-                        className="mb-4"
-                      >
+                      <p style={getTypographyStyles(typography, "p1")}>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                         sed do eiusmod tempor incididunt ut labore et dolore
                         magna aliqua. Ut enim ad minim veniam, quis nostrud
@@ -556,7 +566,14 @@ const PreviewSectionComponent: React.FC<PreviewSectionProps> = ({
                         non proident, sunt in culpa qui officia deserunt mollit
                         anim id est laborum.
                       </p>
-                      <p style={getTypographyStyles(typography, "p1")}>
+                      <p
+                        style={{
+                          ...getTypographyStyles(typography, "p1"),
+                          marginTop: `${(
+                            typography.p1Size * typography.bodyLineHeight
+                          ).toFixed(1)}px`,
+                        }}
+                      >
                         Sed ut perspiciatis unde omnis iste natus error sit
                         voluptatem accusantium doloremque laudantium, totam rem
                         aperiam, eaque ipsa quae ab illo inventore veritatis et

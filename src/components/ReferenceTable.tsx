@@ -230,8 +230,6 @@ export const ReferenceTable: React.FC<ReferenceTableProps> = ({
         return "H3 to content transition spacing";
       case "bulletPoints":
         return "List item separation";
-      case "paragraphSpacing":
-        return "Natural text flow (breaks 8pt grid intentionally)";
       case "gridGap2ColHorizontal":
         return "Horizontal spacing in 2-column layouts";
       case "gridGap2ColVertical":
@@ -445,6 +443,16 @@ export const ReferenceTable: React.FC<ReferenceTableProps> = ({
                     {typography.desktop.bodyFontWeight}
                   </span>
                 </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Paragraph Spacing:</span>
+                  <span className="font-mono text-blue-600">
+                    {(
+                      typography.desktop.p1Size *
+                      typography.desktop.bodyLineHeight
+                    ).toFixed(1)}
+                    px
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -548,6 +556,16 @@ export const ReferenceTable: React.FC<ReferenceTableProps> = ({
                     {typography.tablet.bodyFontWeight}
                   </span>
                 </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Paragraph Spacing:</span>
+                  <span className="font-mono text-green-600">
+                    {(
+                      typography.tablet.p1Size *
+                      typography.tablet.bodyLineHeight
+                    ).toFixed(1)}
+                    px
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -649,6 +667,16 @@ export const ReferenceTable: React.FC<ReferenceTableProps> = ({
                   <span className="text-gray-600">Font Weight:</span>
                   <span className="font-mono">
                     {typography.mobile.bodyFontWeight}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Paragraph Spacing:</span>
+                  <span className="font-mono text-purple-600">
+                    {(
+                      typography.mobile.p1Size *
+                      typography.mobile.bodyLineHeight
+                    ).toFixed(1)}
+                    px
                   </span>
                 </div>
               </div>

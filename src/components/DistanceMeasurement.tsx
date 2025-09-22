@@ -156,7 +156,7 @@ export const DistanceMeasurement: React.FC<DistanceMeasurementProps> = ({
           endY: elementBottom,
           distance: distance,
           direction: "vertical",
-          label: `${Math.round(distance)}px`,
+          label: `${distance.toFixed(1)}px`,
         });
       }
 
@@ -177,7 +177,7 @@ export const DistanceMeasurement: React.FC<DistanceMeasurementProps> = ({
           endY: elementTop,
           distance: distance,
           direction: "vertical",
-          label: `${Math.round(distance)}px`,
+          label: `${distance.toFixed(1)}px`,
         });
       }
 
@@ -198,7 +198,7 @@ export const DistanceMeasurement: React.FC<DistanceMeasurementProps> = ({
           endY: (elementTop + elementBottom) / 2,
           distance: distance,
           direction: "horizontal",
-          label: `${Math.round(distance)}px`,
+          label: `${distance.toFixed(1)}px`,
         });
       }
 
@@ -219,7 +219,7 @@ export const DistanceMeasurement: React.FC<DistanceMeasurementProps> = ({
           endY: (elementTop + elementBottom) / 2,
           distance: distance,
           direction: "horizontal",
-          label: `${Math.round(distance)}px`,
+          label: `${distance.toFixed(1)}px`,
         });
       }
 

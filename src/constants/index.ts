@@ -58,8 +58,8 @@ export const initialSpacing: SpacingValues = {
     h3ToContent: 24,
     subtitleToH2: 24,
     aboveButtons: 24,
-    paragraphSpacing: 26,
     bulletPoints: 16,
+    paragraphSpacing: 0, // Deprecated - now calculated from font size × line height
     gridGap2ColHorizontal: 40,
     gridGap2ColVertical: 40,
     gridGap3ColHorizontal: 32,
@@ -80,8 +80,8 @@ export const initialSpacing: SpacingValues = {
     h3ToContent: 12,
     subtitleToH2: 20,
     aboveButtons: 20,
-    paragraphSpacing: 22,
     bulletPoints: 12,
+    paragraphSpacing: 0, // Deprecated - now calculated from font size × line height
     gridGap2ColHorizontal: 32,
     gridGap2ColVertical: 32,
     gridGap3ColHorizontal: 24,
@@ -102,8 +102,8 @@ export const initialSpacing: SpacingValues = {
     h3ToContent: 24,
     subtitleToH2: 16,
     aboveButtons: 16,
-    paragraphSpacing: 20,
     bulletPoints: 12,
+    paragraphSpacing: 0, // Deprecated - now calculated from font size × line height
     gridGap2ColHorizontal: 24,
     gridGap2ColVertical: 24,
     gridGap3ColHorizontal: 16,
@@ -130,7 +130,6 @@ export const spacingLabels = {
   subtitleToH2: "Section Label → H2",
 
   // Content Spacing
-  paragraphSpacing: "Paragraph Spacing",
   bulletPoints: "Bullet Point Spacing",
 
   // Interactive Elements

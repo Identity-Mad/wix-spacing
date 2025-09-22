@@ -58,7 +58,6 @@ const SpacingControlsComponent: React.FC<SpacingControlsProps> = ({
     "h3ToContent",
     "subtitleToH2",
     "aboveButtons",
-    "paragraphSpacing",
     "bulletPoints",
     "singleColumnMaxWidth",
   ];
@@ -79,74 +78,8 @@ const SpacingControlsComponent: React.FC<SpacingControlsProps> = ({
           <div className="text-center text-gray-500 font-medium">Mobile</div>
         </div>
 
-        {/* Top/Bottom row */}
-        <div className="grid grid-cols-[auto_1fr_1fr_1fr] gap-2 mb-2">
-          <div className="flex items-center justify-center w-6">
-            <ArrowUpDown size={14} className="text-gray-500" />
-          </div>
-          <input
-            type="number"
-            step="8"
-            value={
-              spacing.desktop[pair.vertical as keyof typeof spacing.desktop]
-            }
-            onChange={(e) =>
-              updateSpacing(
-                "desktop",
-                pair.vertical,
-                parseInt(e.target.value) || 0
-              )
-            }
-            className={`w-full px-2 py-1 border rounded text-center ${
-              spacing.desktop[pair.vertical as keyof typeof spacing.desktop] %
-                8 ===
-              0
-                ? "border-gray-300 bg-white"
-                : "border-orange-400 bg-orange-50 text-orange-800"
-            }`}
-          />
-          <input
-            type="number"
-            step="8"
-            value={spacing.tablet[pair.vertical as keyof typeof spacing.tablet]}
-            onChange={(e) =>
-              updateSpacing(
-                "tablet",
-                pair.vertical,
-                parseInt(e.target.value) || 0
-              )
-            }
-            className={`w-full px-2 py-1 border rounded text-center ${
-              spacing.tablet[pair.vertical as keyof typeof spacing.tablet] %
-                8 ===
-              0
-                ? "border-gray-300 bg-white"
-                : "border-orange-400 bg-orange-50 text-orange-800"
-            }`}
-          />
-          <input
-            type="number"
-            step="8"
-            value={spacing.mobile[pair.vertical as keyof typeof spacing.mobile]}
-            onChange={(e) =>
-              updateSpacing(
-                "mobile",
-                pair.vertical,
-                parseInt(e.target.value) || 0
-              )
-            }
-            className={`w-full px-2 py-1 border rounded text-center ${
-              spacing.mobile[pair.vertical as keyof typeof spacing.mobile] %
-                8 ===
-              0
-                ? "border-gray-300 bg-white"
-                : "border-orange-400 bg-orange-50 text-orange-800"
-            }`}
-          />
-        </div>
-
         {/* Left/Right row */}
-        <div className="grid grid-cols-[auto_1fr_1fr_1fr] gap-2">
+        <div className="grid grid-cols-[auto_1fr_1fr_1fr] gap-2 mb-2">
           <div className="flex items-center justify-center w-6">
             <ArrowLeftRight size={14} className="text-gray-500" />
           </div>
@@ -207,6 +140,72 @@ const SpacingControlsComponent: React.FC<SpacingControlsProps> = ({
             }
             className={`w-full px-2 py-1 border rounded text-center ${
               spacing.mobile[pair.horizontal as keyof typeof spacing.mobile] %
+                8 ===
+              0
+                ? "border-gray-300 bg-white"
+                : "border-orange-400 bg-orange-50 text-orange-800"
+            }`}
+          />
+        </div>
+
+        {/* Top/Bottom row */}
+        <div className="grid grid-cols-[auto_1fr_1fr_1fr] gap-2">
+          <div className="flex items-center justify-center w-6">
+            <ArrowUpDown size={14} className="text-gray-500" />
+          </div>
+          <input
+            type="number"
+            step="8"
+            value={
+              spacing.desktop[pair.vertical as keyof typeof spacing.desktop]
+            }
+            onChange={(e) =>
+              updateSpacing(
+                "desktop",
+                pair.vertical,
+                parseInt(e.target.value) || 0
+              )
+            }
+            className={`w-full px-2 py-1 border rounded text-center ${
+              spacing.desktop[pair.vertical as keyof typeof spacing.desktop] %
+                8 ===
+              0
+                ? "border-gray-300 bg-white"
+                : "border-orange-400 bg-orange-50 text-orange-800"
+            }`}
+          />
+          <input
+            type="number"
+            step="8"
+            value={spacing.tablet[pair.vertical as keyof typeof spacing.tablet]}
+            onChange={(e) =>
+              updateSpacing(
+                "tablet",
+                pair.vertical,
+                parseInt(e.target.value) || 0
+              )
+            }
+            className={`w-full px-2 py-1 border rounded text-center ${
+              spacing.tablet[pair.vertical as keyof typeof spacing.tablet] %
+                8 ===
+              0
+                ? "border-gray-300 bg-white"
+                : "border-orange-400 bg-orange-50 text-orange-800"
+            }`}
+          />
+          <input
+            type="number"
+            step="8"
+            value={spacing.mobile[pair.vertical as keyof typeof spacing.mobile]}
+            onChange={(e) =>
+              updateSpacing(
+                "mobile",
+                pair.vertical,
+                parseInt(e.target.value) || 0
+              )
+            }
+            className={`w-full px-2 py-1 border rounded text-center ${
+              spacing.mobile[pair.vertical as keyof typeof spacing.mobile] %
                 8 ===
               0
                 ? "border-gray-300 bg-white"
