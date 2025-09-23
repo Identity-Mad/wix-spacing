@@ -1,6 +1,7 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import { TypographySettings, TypographyBreakpointKey } from "../types";
 import { getTypographyStyles } from "../utils/typography";
+import { RefreshCw } from "lucide-react";
 
 interface TypographyControlsProps {
   typography: TypographySettings;
@@ -15,6 +16,15 @@ const TypographyControlsComponent: React.FC<TypographyControlsProps> = ({
   typography,
   updateTypography,
 }) => {
+  const [syncedFields, setSyncedFields] = useState<Record<string, boolean>>({
+    h1Size: true,
+    h2Size: true,
+    h3Size: true,
+    p1Size: true,
+    p2Size: true,
+    headingFontWeight: true,
+    bodyFontWeight: true,
+  });
   const globalTypographyFields = [
     {
       key: "fontFamily",
@@ -84,14 +94,53 @@ const TypographyControlsComponent: React.FC<TypographyControlsProps> = ({
     });
   };
 
+  const updateSyncedTypography = (
+    breakpoint: TypographyBreakpointKey,
+    key: keyof TypographySettings["desktop"],
+    value: string | number
+  ) => {
+    if (syncedFields[key] && breakpoint === "desktop") {
+      // If synced and updating desktop, update all breakpoints
+      updateGlobalTypography(key, value);
+    } else {
+      // If not synced or updating non-desktop, update only the specific breakpoint
+      updateTypography(breakpoint, key, value);
+    }
+  };
+
+  const toggleFieldSync = (key: string) => {
+    setSyncedFields((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
+
   return (
     <div className="space-y-4">
       {/* Breakpoint-Specific Typography Controls (Font Sizes & Weights) */}
       {breakpointTypographyFields.map((field) => (
         <div key={field.key} className="border-b border-gray-100 pb-3">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            {field.label}
-          </label>
+          <div className="flex items-center gap-2 mb-2">
+            <label className="text-sm font-medium text-gray-700">
+              {field.label}
+            </label>
+            <button
+              onClick={() => toggleFieldSync(field.key)}
+              className="transition-colors hover:opacity-70"
+              title={
+                syncedFields[field.key]
+                  ? "Click to unsync"
+                  : "Click to sync with desktop"
+              }
+            >
+              <RefreshCw
+                size={14}
+                className={`transition-colors ${
+                  syncedFields[field.key] ? "text-blue-600" : "text-gray-400"
+                }`}
+              />
+            </button>
+          </div>
           <div className="grid grid-cols-3 gap-2 text-xs">
             {breakpoints.map((breakpoint) => (
               <div key={breakpoint}>
@@ -102,7 +151,7 @@ const TypographyControlsComponent: React.FC<TypographyControlsProps> = ({
                   type="number"
                   value={typography[breakpoint][field.key]}
                   onChange={(e) =>
-                    updateTypography(
+                    updateSyncedTypography(
                       breakpoint,
                       field.key,
                       field.key.includes("Size") || field.key.includes("Weight")
@@ -110,10 +159,15 @@ const TypographyControlsComponent: React.FC<TypographyControlsProps> = ({
                         : parseFloat(e.target.value) || 0
                     )
                   }
-                  step={field.step}
-                  min={field.min}
-                  max={field.max}
-                  className="w-full px-2 py-1 border border-gray-300 rounded text-center text-xs focus:outline-none focus:ring-1 focus:ring-purple-500"
+                  step={(field as any).step || undefined}
+                  min={(field as any).min || undefined}
+                  max={(field as any).max || undefined}
+                  disabled={syncedFields[field.key] && breakpoint !== "desktop"}
+                  className={`w-full px-2 py-1 border rounded text-center text-xs focus:outline-none focus:ring-1 focus:ring-purple-500 ${
+                    syncedFields[field.key] && breakpoint !== "desktop"
+                      ? "border-gray-200 bg-gray-50 text-gray-500 cursor-not-allowed"
+                      : "border-gray-300 bg-white"
+                  }`}
                 />
               </div>
             ))}
